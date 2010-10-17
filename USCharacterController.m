@@ -9,6 +9,8 @@
 #import "USCharacterController.h"
 #import "USBlock.h"
 #import "USWorld.h"
+#import "USWorldBlockView.h"
+#import "USInventoryEntry.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kAccelerometerFrequency        30.0 //Hz
@@ -113,9 +115,9 @@
     self.velocityY += 0.1;
     self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
     //else if (self.position > self.
-    
+
     [self handleCollision];
-    
+
     self.view.frame = CGRectMake(self.position.x, self.position.y, TILESIZE, TILESIZE * 2);
 }
 
@@ -129,7 +131,7 @@
     y = (self.position.y + TILESIZE * 2) / TILESIZE;
     USBlock *block1 = [USBlock blockAtPoint:CGPointMake(x1, y)];
     USBlock *block2 = [USBlock blockAtPoint:CGPointMake(x2, y)];
-    
+
     if (block1 != nil || block2 != nil) {
         self.velocityY = 0.0;
         self.position = CGPointMake(self.position.x, (y - 2) * TILESIZE);
@@ -167,22 +169,44 @@
 
 - (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
 {
+    CGPoint manPoint = CGPointMake(self.position.x / TILESIZE, self.position.y / TILESIZE);
+    CGPoint blockPoint = CGPointZero;
     switch (direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
             NSLog(@"collecting Up: %@", self);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y + 1);
             break;
         case UISwipeGestureRecognizerDirectionDown:
             NSLog(@"collecting down: %@", self);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y - 1);
             break;
         case UISwipeGestureRecognizerDirectionLeft:
             NSLog(@"collecting left: %@", self);
+            blockPoint = CGPointMake(manPoint.x - 1, manPoint.y);
             break;
         case UISwipeGestureRecognizerDirectionRight:
             NSLog(@"collecting right: %@", self);
+            blockPoint = CGPointMake(manPoint.x + 1, manPoint.y);
             break;
         default:
             break;
+    }
+
+    USBlock *block = [USBlock blockAtPoint:blockPoint];
+
+    if (block)
+    {
+        NSManagedObjectContext *context = [block managedObjectContext];
+        USInventoryEntry *inventoryEntry = [USInventoryEntry insertInManagedObjectContext:context];
+        inventoryEntry.block = block;
+        block.world = nil;
+        [self.character addInventoryEntriesObject:inventoryEntry];
+        [[block worldBlockView] collectAction];
+
+        NSError *error = nil;
+        [context save:&error];
+        NSLog(@"inventory!: %@", self.character.inventoryEntries);
     }
 }
 

@@ -11,6 +11,7 @@
 #import "USBlockView.h"
 #import "USWorldBlockView.h"
 #import "USMainContext.h"
+#import "UISwipeGestureRecognizer+Additions.h"
 
 @interface USWorldController ()
 
@@ -43,17 +44,20 @@
     [super viewDidLoad];
 
 
-    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self.characterController
-                                                                                           action:@selector(handleSwipe:)] autorelease];
-    [self.view addGestureRecognizer:swipeRecognizer];
-    
+    NSArray *swipeRecognizers = [UISwipeGestureRecognizer us_swipeGestureRecognizersForAllDirectionsWithTarget:self
+                                                                                                        action:@selector(handleSwipe:)];
+
+    [swipeRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        [self.view addGestureRecognizer:obj];
+    }];
+
     // Initialization code.
     UITapGestureRecognizer *breakGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(breakBlock:)] autorelease];
-    
+
     [self.view addGestureRecognizer:breakGesture];
-    
-    
+
+
     NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }
 

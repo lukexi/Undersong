@@ -13,5 +13,6 @@
 
 }
 - (void)breakAction;
+- (void)collectAction;
 
 @end
