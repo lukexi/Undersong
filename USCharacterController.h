@@ -25,5 +25,6 @@
 }
 
 - (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction;
+- (void) handleCollision;
 
 @end

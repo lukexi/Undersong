@@ -22,34 +22,9 @@ float USRandomFloat(void)
     self = [super initWithFrame:frame];
     if (self)
     {
-        // Initialization code.
-        UITapGestureRecognizer *breakGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(breakAction:)] autorelease];
-
-        [self addGestureRecognizer:breakGesture];
     }
     return self;
 }
-
-- (void)breakAction:(UIGestureRecognizer*)gestureRecognizer
-{
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [self.superview bringSubviewToFront:self];
-                         self.alpha = 0.0;
-                         self.transform = CGAffineTransformMakeScale(2, 2);
-                     }
-                     completion:^(BOOL finished){
-
-                         NSManagedObjectContext *context = [self.block managedObjectContext];
-                         [context deleteObject:self.block];
-                         NSError *error = nil;
-                         [context save:&error];
-
-                         [self removeFromSuperview];
-                     }];
-}
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

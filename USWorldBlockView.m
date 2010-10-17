@@ -21,6 +21,22 @@
     return self;
 }
 
+
+- (void)breakAction
+{
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [self.superview bringSubviewToFront:self];
+                         self.alpha = 0.0;
+                         self.transform = CGAffineTransformMakeScale(2, 2);
+                     }
+                     completion:^(BOOL finished){
+                         
+                         [self removeFromSuperview];
+                     }];
+}
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

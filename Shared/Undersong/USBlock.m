@@ -16,7 +16,7 @@
     {
         return (USWorldBlockView *)self.view;
     }
-
+    
     NSInteger x = [self.xPosition intValue];
     NSInteger y = [self.yPosition intValue];
     
@@ -36,7 +36,7 @@
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:[USBlock entityInManagedObjectContext:context]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i", point.x, point.y];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i", (NSInteger)point.x, (NSInteger)point.y];
     [request setPredicate:predicate];
 
     NSError *error = nil;

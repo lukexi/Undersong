@@ -46,8 +46,28 @@
     UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:characterController
                                                                                            action:@selector(handleSwipe:)] autorelease];
     [self.view addGestureRecognizer:swipeRecognizer];
+    
+    // Initialization code.
+    UITapGestureRecognizer *breakGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(breakBlock:)] autorelease];
+    
+    [self.view addGestureRecognizer:breakGesture];
+    
+    
     NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }
+
+- (void)breakBlock:(UIGestureRecognizer*)gestureRecognizer
+{
+    CGPoint loc = [gestureRecognizer locationInView:self.view];
+    USBlock *block = [USBlock blockAtPoint:CGPointMake(loc.x / TILESIZE, loc.y / TILESIZE)];
+    [[block worldBlockView] breakAction];
+    NSManagedObjectContext *context = [USMainContext mainContext];
+    [context deleteObject:block];
+    NSError *error = nil;
+    [context save:&error];
+}
+
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
 {
@@ -81,7 +101,7 @@
 
         [self renderWorld];
 
-        NSLog(@"block at 0,0 is %@", [USBlock blockAtPoint:CGPointMake(0, 0)]);
+        NSLog(@"block at 0,21 is %@", [USBlock blockAtPoint:CGPointMake(0, 21)]);
     }
 }
 

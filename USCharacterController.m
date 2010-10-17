@@ -8,8 +8,9 @@
 
 #import "USCharacterController.h"
 #import "USWorldController.h"
+#import "USBlock.h"
 
-#define kAccelerometerFrequency        60.0 //Hz
+#define kAccelerometerFrequency        30.0 //Hz
 #define kFilteringFactor 0.1
 
 @interface USCharacterController ()
@@ -87,7 +88,7 @@
 
     // HACKY HACKY HACKTOWN, this should be in its own tick function, run on a tick timer.
     if (fabs(self.accelY) > 0.02) {
-        self.velocityX += self.accelY;
+        self.velocityX += self.accelY * 2;
     }
     self.velocityX *= 0.9;
     if (fabs(self.velocityX) < 0.01) {
@@ -105,10 +106,30 @@
         self.position = CGPointMake(self.worldController.world.xSizeValue * TILESIZE, self.position.y);
     }
     
-    
-    
+    self.velocityY += 0.1;
+    self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
     //else if (self.position > self.
+    
+    [self handleCollision];
+    
     self.view.frame = CGRectMake(self.position.x, self.position.y, TILESIZE, TILESIZE * 2);
+}
+
+- (void)handleCollision
+{
+    // Assume that character is <= one block wide, and so can be on at most 2 blocks at once.
+    NSInteger x1, x2, y;
+    x1 = self.position.x / TILESIZE;
+    x2 = (self.position.x + TILESIZE) / TILESIZE;
+    // Find the y position of the block-row that character's feet are currently in.
+    y = (self.position.y + TILESIZE * 2) / TILESIZE;
+    USBlock *block1 = [USBlock blockAtPoint:CGPointMake(x1, y)];
+    USBlock *block2 = [USBlock blockAtPoint:CGPointMake(x2, y)];
+    
+    if (block1 != nil || block2 != nil) {
+        self.velocityY = 0.0;
+        self.position = CGPointMake(self.position.x, (y - 2) * TILESIZE);
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

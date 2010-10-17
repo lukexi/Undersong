@@ -12,5 +12,6 @@
 @interface USWorldBlockView : USBlockView {
 
 }
+- (void)breakAction;
 
 @end
