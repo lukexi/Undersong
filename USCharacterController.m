@@ -7,6 +7,7 @@
 //
 
 #import "USCharacterController.h"
+#import "USWorld.h"
 
 #define kAccelerometerFrequency        60.0 //Hz
 #define kFilteringFactor 0.1

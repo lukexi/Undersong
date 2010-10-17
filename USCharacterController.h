@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "USGlobals.h"
+#import "USCharacter.h"
 
 @class USWorldController;
 
