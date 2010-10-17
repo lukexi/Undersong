@@ -22,7 +22,7 @@
     NSInteger y = [self.yPosition intValue];
 
     USWorldBlockView *blockView = [[[USWorldBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
-                                                                            TILESIZE, TILESIZE)] autorelease];
+                                                                                      TILESIZE, TILESIZE)] autorelease];
     [blockView setIsPrecious:self.isPreciousValue];
 
     self.view = blockView;
@@ -49,6 +49,16 @@
 {
     self.view = nil;
     [super dealloc];
+}
+
+- (void)moveToInventoryForCharacter:(USCharacter *)aCharacter
+{
+
+}
+
+- (void)moveToWorld
+{
+
 }
 
 @end

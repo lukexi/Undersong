@@ -60,6 +60,14 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     UIImageView *imageView = (UIImageView *)self.view;
     imageView.image = [UIImage imageNamed:@"Underman.png"];
 
+//    imageView.animationImages = [NSArray arrayWithObjects:
+//                                 [UIImage imageNamed:@"UndermanFrame1.png"],
+//                                 [UIImage imageNamed:@"UndermanFrame2.png"],
+//                                 [UIImage imageNamed:@"UndermanFrame3.png"],
+//                                 [UIImage imageNamed:@"UndermanFrame4.png"],
+//                                 nil];
+//    [imageView startAnimating];
+
     motionManager = [[CMMotionManager alloc] init];
 
     NSLog(@"accelerometer available?! %@", motionManager.accelerometerAvailable ? @"YES" : @"NO" );
@@ -103,7 +111,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
         self.velocityX = 0.0;
     }
     self.position = CGPointMake(self.position.x + self.velocityX, self.position.y);
-    
+
     if (self.position.x < 0)
     {
         self.position = CGPointMake(0, self.position.y);
@@ -116,7 +124,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
     //gravity
     self.velocityY += 1.21;
-    
+
     //jetpack
     if (self.accelX > 0.5) {
         self.velocityY -= self.accelX * 3;
@@ -140,11 +148,11 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
 - (void)handleCollision
 {
-    
+
     // Get block information for all points potentially covered by the character
-    // Keys are NSValues corresponding to the CGPoints 
-    // (0, 0), (1, 0), 
-    // (0, 1), (1, 1), 
+    // Keys are NSValues corresponding to the CGPoints
+    // (0, 0), (1, 0),
+    // (0, 1), (1, 1),
     // (0, 2), (1, 2)
     NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
     [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -153,8 +161,8 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
         {
             double xDiff = self.position.x - block.xPositionValue * TILESIZE;
             double yDiff = (self.position.y - block.yPositionValue * TILESIZE) / 2;
-            
-            
+
+
             if (fabs(xDiff) < TILESIZE && fabs(xDiff) < fabs(yDiff))
             {
                 //Colliding on a horizontal face
@@ -169,7 +177,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
                 }
             }
             else if (fabs(yDiff) < TILESIZE && fabs(yDiff) < fabs(xDiff))
-            { 
+            {
                 //Colliding on a vertical face
                 self.velocityX = 0.0;
                 if (xDiff > 0)
