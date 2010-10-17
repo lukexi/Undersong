@@ -13,6 +13,10 @@
 #import "USMainContext.h"
 #import "UISwipeGestureRecognizer+Additions.h"
 #import "USInventoryController.h"
+#import <QuartzCore/QuartzCore.h>
+
+#define USRembrantSkyColor [UIColor colorWithRed:0.474 green:0.528 blue:0.512 alpha:1.000]
+#define USRembrantGrassColor [UIColor colorWithRed:0.193 green:0.266 blue:0.155 alpha:1.000]
 
 @interface USWorldController ()
 
@@ -61,6 +65,8 @@
 
     [self.view addGestureRecognizer:breakGesture];
 
+    CAGradientLayer *gradientLayer = (CAGradientLayer *)self.view.layer;
+    gradientLayer.colors = [NSArray arrayWithObjects:(id)USRembrantSkyColor.CGColor, (id)USRembrantGrassColor.CGColor, nil];
 
     NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }

@@ -39,6 +39,8 @@
 		81640941126AF4B900463E22 /* USInventoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164093F126AF4B900463E22 /* USInventoryController.m */; };
 		81640942126AF4B900463E22 /* USInventoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81640940126AF4B900463E22 /* USInventoryController.xib */; };
 		816409DD126B084E00463E22 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 816409DC126B084E00463E22 /* icon.png */; };
+		81640AED126B24B900463E22 /* USGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640AEC126B24B900463E22 /* USGradientView.m */; };
+		81640AF4126B25D500463E22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81640AF3126B25D500463E22 /* QuartzCore.framework */; };
 		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
 		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
@@ -96,6 +98,9 @@
 		8164093F126AF4B900463E22 /* USInventoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USInventoryController.m; sourceTree = "<group>"; };
 		81640940126AF4B900463E22 /* USInventoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = USInventoryController.xib; sourceTree = "<group>"; };
 		816409DC126B084E00463E22 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		81640AEB126B24B900463E22 /* USGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGradientView.h; sourceTree = "<group>"; };
+		81640AEC126B24B900463E22 /* USGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGradientView.m; sourceTree = "<group>"; };
+		81640AF3126B25D500463E22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
 		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
@@ -113,6 +118,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				28EEBFDD1118E19E00187D67 /* CoreData.framework in Frameworks */,
 				816407EA126ACBFD00463E22 /* CoreMotion.framework in Frameworks */,
+				81640AF4126B25D500463E22 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +187,8 @@
 				816408FA126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.h */,
 				816408FB126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m */,
 				816409DC126B084E00463E22 /* icon.png */,
+				81640AEB126B24B900463E22 /* USGradientView.h */,
+				81640AEC126B24B900463E22 /* USGradientView.m */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -212,6 +220,7 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				28EEBFDC1118E19E00187D67 /* CoreData.framework */,
 				816407E9126ACBFD00463E22 /* CoreMotion.framework */,
+				81640AF3126B25D500463E22 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -328,6 +337,7 @@
 				D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */,
 				816408FC126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m in Sources */,
 				81640941126AF4B900463E22 /* USInventoryController.m in Sources */,
+				81640AED126B24B900463E22 /* USGradientView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

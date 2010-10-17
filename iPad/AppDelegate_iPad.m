@@ -17,7 +17,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSLog(@"worldcontroller: %@", worldController);
     [self.window addSubview:self.worldController.view];
     [self.window makeKeyAndVisible];
 
