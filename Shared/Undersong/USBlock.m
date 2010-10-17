@@ -51,14 +51,4 @@
     [super dealloc];
 }
 
-- (void)moveToInventoryForCharacter:(USCharacter *)aCharacter
-{
-
-}
-
-- (void)moveToWorld
-{
-
-}
-
 @end

@@ -13,7 +13,7 @@
 #import "USInventoryEntry.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kAccelerometerFrequency        15.0 //Hz
+#define kAccelerometerFrequency        30.0 //Hz
 #define kFilteringFactor 0.1
 
 NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBlock";
@@ -103,10 +103,10 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
 
     // HACKY HACKY HACKTOWN, this should be in its own tick function, run on a tick timer.
-    if (fabs(self.accelY) > 0.03) {
-        self.velocityX += self.accelY * 5;
+    if (fabs(self.accelY) > 0.02) {
+        self.velocityX += self.accelY * 2;
     }
-    self.velocityX *= 0.8;
+    self.velocityX *= 0.9;
     if (fabs(self.velocityX) < 0.01) {
         self.velocityX = 0.0;
     }
@@ -123,11 +123,11 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     }
 
     //gravity
-    self.velocityY += 1.21;
+    self.velocityY += 0.4;
 
     //jetpack
-    if (self.accelX > 0.5) {
-        self.velocityY -= self.accelX * 3;
+    if (self.accelX > 0.3) {
+        self.velocityY -= self.accelX;
     }
     if (self.velocityY < 0)
     {
@@ -154,7 +154,10 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     // (0, 0), (1, 0),
     // (0, 1), (1, 1),
     // (0, 2), (1, 2)
+    //NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+
     NSDictionary *blocksCovered = [self.character.world blocksAroundCharacterPoint:self.position];
+
     [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         USBlock *block = (USBlock *)obj;
         if (obj != [NSNull null])
@@ -252,12 +255,13 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
     USBlock *block = [self.character.world blockAtPoint:blockPoint];
 
-    if (block)
+    if ((NSNull *)block != [NSNull null])
     {
         NSManagedObjectContext *context = [block managedObjectContext];
         USInventoryEntry *inventoryEntry = [USInventoryEntry insertInManagedObjectContext:context];
         inventoryEntry.block = block;
-        block.world = nil;
+
+        [self.character.world us_removeBlocksObject:block];
         [self.character addInventoryEntriesObject:inventoryEntry];
         [[block worldBlockView] collectAction];
         block.view = nil;
@@ -272,10 +276,9 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 - (BOOL)placeBlock:(USBlock *)block inDirection:(UISwipeGestureRecognizerDirection)direction
 {
     CGPoint blockPoint = [self pointInDirection:direction];
-
     USBlock *existingBlock = [self.character.world blockAtPoint:blockPoint];
 
-    if (existingBlock)
+    if ((NSNull *)existingBlock != [NSNull null])
     {
         return NO;
     }
@@ -283,7 +286,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     block.xPositionValue = blockPoint.x;
     block.yPositionValue = blockPoint.y;
 
-    [self.character.world addBlocksObject:block];
+    [self.character.world us_addBlocksObject:block];
     NSLog(@"deleting inventory: %@", block.inventoryEntry);
     [[block managedObjectContext] deleteObject:block.inventoryEntry];
     NSError *error = nil;
