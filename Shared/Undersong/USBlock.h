@@ -1,4 +1,5 @@
 #import "_USBlock.h"
+#import "USCharacter.h"
 
 @class USWorldBlockView;
 @class USInventoryBlockView;
@@ -15,5 +16,8 @@
 - (USInventoryBlockView *)inventoryBlockView;
 
 @property (nonatomic, retain) IBOutlet UIView *view;
+
+- (void)moveToInventoryForCharacter:(USCharacter *)aCharacter;
+- (void)moveToWorld;
 
 @end
