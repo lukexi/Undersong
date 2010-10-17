@@ -10,6 +10,7 @@
 // Custom logic goes here.
 - (USWorldBlockView *) worldBlockView;
 + (USBlock *) blockAtPoint:(CGPoint)point;
++ (NSDictionary *) blocksAroundCharacterPoint:(CGPoint)point;
 
 @property (nonatomic, retain) IBOutlet UIView *view;
 

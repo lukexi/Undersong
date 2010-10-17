@@ -99,7 +99,7 @@
         self.velocityX = 0.0;
     }
     self.position = CGPointMake(self.position.x + self.velocityX, self.position.y);
-
+    
     if (self.position.x < 0)
     {
         self.position = CGPointMake(0, self.position.y);
@@ -110,9 +110,25 @@
         self.position = CGPointMake(self.character.world.xSizeValue * TILESIZE, self.position.y);
     }
 
-    self.velocityY += 0.1;
+    //gravity
+    self.velocityY += 0.4;
+    
+    //jetpack
+    if (self.accelX > 0.3) {
+        self.velocityY -= self.accelX;
+    }
+    if (self.velocityY < 0)
+    {
+        //air resistance while rising
+        self.velocityY *= 0.9;
+    }
+
     self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
-    //else if (self.position > self.
+    
+    if (self.position.y < 0)
+    {
+        self.position = CGPointMake(self.position.x, 0);
+    }
     
     [self handleCollision];
     
@@ -121,19 +137,163 @@
 
 - (void)handleCollision
 {
-    // Assume that character is <= one block wide, and so can be on at most 2 blocks at once.
-    NSInteger x1, x2, y;
-    x1 = self.position.x / TILESIZE;
-    x2 = (self.position.x + TILESIZE) / TILESIZE;
-    // Find the y position of the block-row that character's feet are currently in.
-    y = (self.position.y + TILESIZE * 2) / TILESIZE;
-    USBlock *block1 = [USBlock blockAtPoint:CGPointMake(x1, y)];
-    USBlock *block2 = [USBlock blockAtPoint:CGPointMake(x2, y)];
+//    NSLog(@"Handling collisions----------------------------------------");
     
-    if (block1 != nil || block2 != nil) {
-        self.velocityY = 0.0;
-        self.position = CGPointMake(self.position.x, (y - 2) * TILESIZE);
-    }
+    // Get block information for all points potentially covered by the character
+    // Keys are NSValues corresponding to the CGPoints 
+    // (0, 0), (1, 0), 
+    // (0, 1), (1, 1), 
+    // (0, 2), (1, 2)
+    NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+//    double newX, newY;
+//    newX = self.position.x;
+//    newY = self.position.y;
+    [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        USBlock *block = (USBlock *)obj;
+        if (obj != [NSNull null])
+        {
+//            NSLog(@"Got a block");
+            double xDiff = self.position.x - block.xPositionValue * TILESIZE;
+            double yDiff = (self.position.y - block.yPositionValue * TILESIZE) / 2;
+            
+//            NSLog(@"xDiff: %f, yDiff: %f", xDiff, yDiff);
+            
+            if (fabs(xDiff) < TILESIZE && fabs(xDiff) < fabs(yDiff))
+            {
+//                NSLog(@"Colliding on a horizontal face");
+                //Colliding on a horizontal face
+                self.velocityY = 0.0;
+                if (yDiff > 0)
+                {
+//                    NSLog(@"A");
+                    self.position = CGPointMake(self.position.x, self.position.y + (TILESIZE - yDiff));
+                }
+                else
+                {
+//                    NSLog(@"B");
+                    self.position = CGPointMake(self.position.x, (block.yPositionValue - 2) * TILESIZE);
+                }
+            }
+            else if (fabs(yDiff) < TILESIZE && fabs(yDiff) < fabs(xDiff))
+            { 
+//                NSLog(@"Colliding on a vertical face");
+                //Colliding on a vertical face
+                self.velocityX = 0.0;
+                if (xDiff > 0)
+                {
+//                    NSLog(@"C");
+                    self.position = CGPointMake(self.position.x + (TILESIZE - xDiff), self.position.y);
+                }
+                else
+                {
+//                    NSLog(@"D");
+                    self.position = CGPointMake(self.position.x - (TILESIZE + xDiff), self.position.y);
+                }
+            }
+        }
+    }];
+
+    
+    
+//    // Which points could the player end up at?
+//    BOOL ZeroZeroPossible = YES;
+//    BOOL OneZeroPossible = YES;
+//    BOOL ZeroOnePossible = YES;
+//    BOOL OneOnePossible = YES;
+//    
+//    //NSLog(@"blocksCovered: %@", blocksCovered);
+//    
+//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(0, 0)]] != [NSNull null] ||
+//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(0, 1)]] != [NSNull null])
+//    {
+//        ZeroZeroPossible = NO;
+//    }
+//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null] ||
+//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 2)]] != [NSNull null])
+//    {
+//        OneZeroPossible = NO;
+//    }
+//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 0)]] != [NSNull null] ||
+//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null])
+//    {
+//        ZeroOnePossible = NO;
+//    }
+//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null] ||
+//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 2)]] != [NSNull null])
+//    {
+//        OneOnePossible = NO;
+//    }
+//
+//    // NO BLOCKS COVERED, we don't have to correct anything.
+//    if (ZeroZeroPossible && OneZeroPossible && ZeroOnePossible && OneOnePossible)
+//    {
+//        //NSLog(@"NO COLLISION");
+//        return;
+//    }
+//
+//    
+//    // SOME BLOCKS COVERED, move to the closest available position
+//    CGPoint closestPoint = self.position;
+//    CGFloat minSquaredDist = 1000000;
+//    
+//    if (ZeroZeroPossible)
+//    {
+//        CGPoint zeroZero = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE)), 
+//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE)));
+//        CGFloat squaredDist = pow(self.position.x - zeroZero.x, 2) + pow(self.position.y - zeroZero.y, 2);
+//        if (squaredDist < minSquaredDist)
+//        {
+//            minSquaredDist = squaredDist;
+//            closestPoint = zeroZero;
+//        }
+//    }
+//    if (OneZeroPossible)
+//    {
+//        CGPoint oneZero = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE) + TILESIZE), 
+//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE)));
+//        CGFloat squaredDist = pow(self.position.x - oneZero.x, 2) + pow(self.position.y - oneZero.y, 2);
+//        if (squaredDist < minSquaredDist)
+//        {
+//            minSquaredDist = squaredDist;
+//            closestPoint = oneZero;
+//        }
+//    }
+//    if (ZeroOnePossible)
+//    {
+//        CGPoint zeroOne = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE)), 
+//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE) + TILESIZE));
+//        CGFloat squaredDist = pow(self.position.x - zeroOne.x, 2) + pow(self.position.y - zeroOne.y, 2);
+//        if (squaredDist < minSquaredDist)
+//        {
+//            minSquaredDist = squaredDist;
+//            closestPoint = zeroOne;
+//        }
+//    }
+//    if (OneOnePossible)
+//    {
+//        CGPoint oneOne = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE) + TILESIZE), 
+//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE) + TILESIZE));
+//        CGFloat squaredDist = pow(self.position.x - oneOne.x, 2) + pow(self.position.y - oneOne.y, 2);
+//        if (squaredDist < minSquaredDist)
+//        {
+//            minSquaredDist = squaredDist;
+//            closestPoint = oneOne;
+//        }
+//    }
+//    
+//    if (self.velocityX > 0 && closestPoint.x < self.position.x ||
+//        self.velocityX < 0 && closestPoint.x > self.position.x)
+//    {
+//        self.velocityX = 0;
+//    }
+//    if (self.velocityY > 0 && closestPoint.y < self.position.y ||
+//        self.velocityY < 0 && closestPoint.y > self.position.y)
+//    {
+//        self.velocityY = 0;
+//    }
+//    
+//    self.position = closestPoint;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
