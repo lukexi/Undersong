@@ -24,6 +24,7 @@
 		D52D0522126AB79A00A48496 /* USCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D52D0520126AB79A00A48496 /* USCharacterController.m */; };
 		D52D0523126AB79A00A48496 /* USCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D52D0521126AB79A00A48496 /* USCharacterController.xib */; };
 		D5995E7F126AC5CB00874C31 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5995E7E126AC5CB00874C31 /* CoreMotion.framework */; };
+		816406BB126AAF0100463E22 /* USBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 816406BA126AAF0100463E22 /* USBlockView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +47,8 @@
 		8164066F126AA49100463E22 /* USWorldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldController.h; sourceTree = "<group>"; };
 		81640670126AA49100463E22 /* USWorldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldController.m; sourceTree = "<group>"; };
 		81640671126AA49100463E22 /* USWorldController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = USWorldController.xib; sourceTree = "<group>"; };
-		816406B9126AAF0100463E22 /* USBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USBlock.h; sourceTree = "<group>"; };
-		816406BA126AAF0100463E22 /* USBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USBlock.m; sourceTree = "<group>"; };
+		816406B9126AAF0100463E22 /* USBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USBlockView.h; sourceTree = "<group>"; };
+		816406BA126AAF0100463E22 /* USBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USBlockView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D52D051F126AB79A00A48496 /* USCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USCharacterController.h; sourceTree = "<group>"; };
 		D52D0520126AB79A00A48496 /* USCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USCharacterController.m; sourceTree = "<group>"; };
@@ -119,6 +120,8 @@
 				816406B9126AAF0100463E22 /* USBlock.h */,
 				816406BA126AAF0100463E22 /* USBlock.m */,
 				D52D055D126ABBBD00A48496 /* USGlobals.h */,
+				816406B9126AAF0100463E22 /* USBlockView.h */,
+				816406BA126AAF0100463E22 /* USBlockView.m */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				81640672126AA49100463E22 /* USWorldController.m in Sources */,
 				816406BB126AAF0100463E22 /* USBlock.m in Sources */,
 				D52D0522126AB79A00A48496 /* USCharacterController.m in Sources */,
+				816406BB126AAF0100463E22 /* USBlockView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

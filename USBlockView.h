@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface USBlock : UIView
+@interface USBlockView : UIView
 {
 
 }

@@ -7,7 +7,7 @@
 //
 
 #import "USWorldController.h"
-#import "USBlock.h"
+#import "USBlockView.h"
 
 float USRandomFloat(void)
 {
@@ -50,7 +50,7 @@ float USRandomFloat(void)
     {
         for (NSInteger y = 0; y < verticalTileCount; y++)
         {
-            USBlock *tile = [[[USBlock alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
+            USBlockView *tile = [[[USBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                        TILESIZE, TILESIZE)] autorelease];
             
             tile.backgroundColor = [UIColor colorWithHue:USRandomFloat()

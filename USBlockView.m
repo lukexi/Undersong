@@ -6,10 +6,10 @@
 //  Copyright 2010 Hello, Chair Inc. All rights reserved.
 //
 
-#import "USBlock.h"
+#import "USBlockView.h"
 
 
-@implementation USBlock
+@implementation USBlockView
 
 
 - (id)initWithFrame:(CGRect)frame
