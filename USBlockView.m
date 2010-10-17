@@ -48,11 +48,11 @@ float USRandomFloat(void)
 {
     if (isPrecious)
     {
-        CGContextRef context = UIGraphicsGetCurrentContext();
         [USPreciousColor set];
-        CGContextSetLineWidth(context, 2);
-        CGRect pathRect = CGRectInset(self.bounds, 2, 2);
-        [[UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:3] stroke];
+        CGRect pathRect = CGRectInset(self.bounds, 1, 1);
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:3];
+        path.lineWidth = 2;
+        [path stroke];
     }
 }
 
