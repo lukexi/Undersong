@@ -26,7 +26,7 @@ float USRandomFloat(void)
         UITapGestureRecognizer *breakGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                         action:@selector(breakAction:)] autorelease];
 
-        self.gestureRecognizers = [NSArray arrayWithObject:breakGesture];
+        [self addGestureRecognizer:breakGesture];
     }
     return self;
 }

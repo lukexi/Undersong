@@ -92,6 +92,17 @@
 }
 	
 
+@dynamic characters;
+
+	
+- (NSMutableSet*)charactersSet {
+	[self willAccessValueForKey:@"characters"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"characters"];
+	[self didAccessValueForKey:@"characters"];
+	return result;
+}
+	
+
 
 
 @end

@@ -5,7 +5,7 @@
 
 
 @class USBlock;
-@class USInventory;
+@class USCharacter;
 
 
 
@@ -47,8 +47,8 @@
 
 
 
-@property (nonatomic, retain) USInventory* inventory;
-//- (BOOL)validateInventory:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, retain) USCharacter* character;
+//- (BOOL)validateCharacter:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -81,8 +81,8 @@
 
 
 
-- (USInventory*)primitiveInventory;
-- (void)setPrimitiveInventory:(USInventory*)value;
+- (USCharacter*)primitiveCharacter;
+- (void)setPrimitiveCharacter:(USCharacter*)value;
 
 
 @end

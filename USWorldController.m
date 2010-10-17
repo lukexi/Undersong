@@ -41,13 +41,24 @@
 {
     [super viewDidLoad];
 
-    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 
+    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:characterController
+                                                                                           action:@selector(handleSwipe:)] autorelease];
+    [self.view addGestureRecognizer:swipeRecognizer];
+    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
+{
+    [characterController collectBlockInDirection:swipeRecognizer.direction];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
     NSLog(@"rotated to width: %f", self.view.bounds.size.width);
-    // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
+    // We're treating this as our viewDidLoad for anything that relies on
+    // the XY dimensions of the view, like world creation etc.,
+    // because it fires after we autorotate to the only orientation we support
 
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];

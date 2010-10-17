@@ -85,7 +85,7 @@
 
 	
 
-@dynamic inventory;
+@dynamic character;
 
 	
 

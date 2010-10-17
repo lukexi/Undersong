@@ -38,17 +38,17 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
     [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor whiteColor].CGColor]];
-    
+
     motionManager = [[CMMotionManager alloc] init];
-    
+
     NSLog(@"accelerometer available?! %@", motionManager.accelerometerAvailable ? @"YES" : @"NO" );
-    
+
     UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
     theAccelerometer.updateInterval = 1 / kAccelerometerFrequency;
-    
+
     theAccelerometer.delegate = self;
 }
 
@@ -58,7 +58,7 @@
     self.accelX = (acceleration.x * kFilteringFactor) + (self.accelX * (1.0 - kFilteringFactor));
     self.accelY = (acceleration.y * kFilteringFactor) + (self.accelY * (1.0 - kFilteringFactor));
     self.accelZ = (acceleration.z * kFilteringFactor) + (self.accelZ * (1.0 - kFilteringFactor));
-    
+
     // Use the acceleration data.
     // NSLog(@"%f, %f, %f", accelX, accelY, accelZ);
     if (accelY < -0.07) {
@@ -83,7 +83,7 @@
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc. that aren't in use.
 }
 
@@ -99,5 +99,20 @@
     [super dealloc];
 }
 
+- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
+{
+    switch (swipeRecognizer.direction)
+    {
+        case UISwipeGestureRecognizerDirectionUp:
+            [characterController collectBlockInDirection:];
+            break;
+        case <#constant#>:
+            <#statements#>
+            break;
+
+        default:
+            break;
+    }
+}
 
 @end
