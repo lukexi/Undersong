@@ -79,7 +79,13 @@
 {
     UISwipeGestureRecognizerDirection direction = swipeRecognizer.direction;
     USInventoryBlockView *blockView = (USInventoryBlockView *)swipeRecognizer.view;
-    BOOL blockPlaced = [self.characterController placeBlock:blockView.block
+    USBlock *block = blockView.block;
+    if (!block)
+    {
+        return;
+    }
+
+    BOOL blockPlaced = [self.characterController placeBlock:block
                                                 inDirection:direction];
     if (blockPlaced)
     {
