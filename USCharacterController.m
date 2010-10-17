@@ -278,7 +278,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     CGPoint blockPoint = [self pointInDirection:direction];
     USBlock *existingBlock = [self.character.world blockAtPoint:blockPoint];
 
-    if (existingBlock)
+    if ((NSNull *)existingBlock != [NSNull null])
     {
         return NO;
     }
