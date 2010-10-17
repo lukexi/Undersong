@@ -10,7 +10,7 @@
 
 
 @implementation USBlockView
-
+@synthesize block;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,6 +35,12 @@
                          self.transform = CGAffineTransformMakeScale(2, 2);
                      }
                      completion:^(BOOL finished){
+
+                         NSManagedObjectContext *context = [self.block managedObjectContext];
+                         [context deleteObject:self.block];
+                         NSError *error = nil;
+                         [context save:&error];
+
                          [self removeFromSuperview];
                      }];
 }
@@ -49,6 +55,7 @@
 
 - (void)dealloc
 {
+    self.block = nil;
     [super dealloc];
 }
 

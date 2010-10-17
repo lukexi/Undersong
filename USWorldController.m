@@ -7,14 +7,25 @@
 //
 
 #import "USWorldController.h"
+#import "USBlock.h"
 #import "USBlockView.h"
+#import "USMainContext.h"
 
 float USRandomFloat(void)
 {
     return (double)arc4random() / ARC4RANDOM_MAX;
 }
 
+@interface USWorldController ()
+
+- (void)createWorld;
+- (void)renderWorld;
+
+@end
+
+
 @implementation USWorldController
+@synthesize world;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -34,25 +45,58 @@ float USRandomFloat(void)
 {
     [super viewDidLoad];
 
+    NSManagedObjectContext *context = [USMainContext mainContext];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    [request setEntity:[USWorld entityInManagedObjectContext:context]];
+    NSError *error = nil;
+    NSArray *worlds = [context executeFetchRequest:request error:&error];
+
+    if ([worlds count])
+    {
+        self.world = [worlds objectAtIndex:0];
+    }
+    else
+    {
+        [self createWorld];
+    }
+
+    [self renderWorld];
+}
+
+- (void)createWorld
+{
+    NSManagedObjectContext *context = [USMainContext mainContext];
+    self.world = [USWorld insertInManagedObjectContext:context];
+
     NSInteger horizontalTileCount = round(self.view.bounds.size.width / TILESIZE) + 1;
     NSInteger verticalTileCount = round(self.view.bounds.size.height / TILESIZE) + 1;
+
+    self.world.xSize = [NSNumber numberWithInt:horizontalTileCount];
+    self.world.ySize = [NSNumber numberWithInt:verticalTileCount];
 
     for (NSInteger x = 0; x < horizontalTileCount; x++)
     {
         for (NSInteger y = 0; y < verticalTileCount; y++)
         {
-            USBlockView *tile = [[[USBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
-                                                                       TILESIZE, TILESIZE)] autorelease];
-
-            tile.backgroundColor = [UIColor colorWithHue:USRandomFloat()
-                                              saturation:0.5
-                                              brightness:0.5
-                                                   alpha:1];
-            [self.view addSubview:tile];
+            USBlock *block = [USBlock insertInManagedObjectContext:context];
+            block.world = world;
+            block.xPosition = [NSNumber numberWithInt:x];
+            block.yPosition = [NSNumber numberWithInt:y];
         }
     }
+
+    NSError *error = nil;
+    [context save:&error];
 }
 
+- (void)renderWorld
+{
+    for (USBlock *block in self.world.blocks)
+    {
+        [self.view addSubview:[block blockView]];
+    }
+
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -81,6 +125,7 @@ float USRandomFloat(void)
 
 - (void)dealloc
 {
+    self.world = nil;
     [super dealloc];
 }
 

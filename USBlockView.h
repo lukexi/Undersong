@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "USBlock.h"
 
 @interface USBlockView : UIView
 {
-
+    USBlock *block;
 }
+
+@property (nonatomic, retain) USBlock *block;
 
 @end
