@@ -31,6 +31,10 @@
             block.world = world;
             block.xPosition = [NSNumber numberWithInt:x];
             block.yPosition = [NSNumber numberWithInt:y];
+
+            // 1 in 20 chance of preciousness
+            NSInteger stoneType = arc4random() % 20;
+            block.isPreciousValue = (stoneType == 14);
         }
     }
 

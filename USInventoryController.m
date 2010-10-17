@@ -52,17 +52,13 @@
         NSInteger x = idx % xItems;
         NSInteger y = (int)floor(idx / xItems);
 
-        USInventoryBlockView *blockView = [[[USInventoryBlockView alloc] initWithFrame:CGRectMake(x * (itemSize + spacing),
-                                                                                                  y * (itemSize + spacing),
-                                                                                                  itemSize,
-                                                                                                  itemSize)] autorelease];
         USInventoryEntry *entry = obj;
-        blockView.block = entry.block;
-        blockView.backgroundColor = [UIColor colorWithHue:USRandomFloat()
-                                               saturation:0.5
-                                               brightness:0.5
-                                                    alpha:1];
-
+        USBlock *block = entry.block;
+        USInventoryBlockView *blockView = [block inventoryBlockView];
+        blockView.frame = CGRectMake(x * (itemSize + spacing),
+                                     y * (itemSize + spacing),
+                                     itemSize,
+                                     itemSize);
         blockView.gestureRecognizers = [UISwipeGestureRecognizer us_swipeGestureRecognizersForAllDirectionsWithTarget:self
                                                                                                                action:@selector(handleSwipe:)];
 
@@ -70,7 +66,9 @@
     }];
 
 
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                            target:self
+                                                                                            action:@selector(doneAction:)] autorelease];
 }
 
 - (IBAction)doneAction:(id)sender

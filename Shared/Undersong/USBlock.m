@@ -4,6 +4,7 @@
 #import "USWorldBlockView.h"
 #import "USInventoryBlockView.h"
 #import "USMainContext.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation USBlock
 @synthesize view;
@@ -22,12 +23,25 @@
 
     USWorldBlockView *blockView = [[[USWorldBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                             TILESIZE, TILESIZE)] autorelease];
+    [blockView setIsPrecious:self.isPreciousValue];
 
-    blockView.backgroundColor = [UIColor colorWithHue:USRandomFloat()
-                                           saturation:0.5
-                                           brightness:0.5
-                                                alpha:1];
     self.view = blockView;
+    return blockView;
+}
+
+- (USInventoryBlockView *)inventoryBlockView
+{
+    if ([self.view isKindOfClass:[USInventoryBlockView class]])
+    {
+        return (USInventoryBlockView *)self.view;
+    }
+
+    USInventoryBlockView *blockView = [[[USInventoryBlockView alloc] initWithFrame:CGRectZero] autorelease];
+    [blockView setIsPrecious:self.isPreciousValue];
+    blockView.block = self;
+
+    self.view = blockView;
+
     return blockView;
 }
 

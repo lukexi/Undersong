@@ -112,8 +112,6 @@
 
         [self renderWorld];
 
-        NSLog(@"block at 0,21 is %@", [USBlock blockAtPoint:CGPointMake(0, 21)]);
-
         // TODO: Use an NSFetchedResultsController here instead?
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(characterControllerDidPlaceBlock:)
