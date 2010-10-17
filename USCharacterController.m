@@ -146,9 +146,6 @@
     switch (direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
-
-            [USBlock blockAtPoint:<#(CGPoint)point#>]
-            self.position
             NSLog(@"collecting Up: %@", self);
             break;
         case UISwipeGestureRecognizerDirectionDown:
