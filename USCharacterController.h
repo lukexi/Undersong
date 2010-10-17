@@ -10,6 +10,9 @@
 #import <CoreMotion/CoreMotion.h>
 #import "USGlobals.h"
 #import "USCharacter.h"
+#import "USBlock.h"
+
+extern NSString *USCharacterControllerDidPlaceBlock;
 
 @class USWorldController;
 
@@ -28,6 +31,9 @@
 @property (nonatomic, retain) USCharacter *character;
 
 - (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction;
+- (BOOL)placeBlock:(USBlock *)block inDirection:(UISwipeGestureRecognizerDirection)direction;
 - (void) handleCollision;
+
+- (CGPoint)pointInDirection:(UISwipeGestureRecognizerDirection)direction;
 
 @end

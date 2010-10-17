@@ -15,7 +15,6 @@ float USRandomFloat(void)
 }
 
 @implementation USBlockView
-@synthesize block;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,7 +34,6 @@ float USRandomFloat(void)
 
 - (void)dealloc
 {
-    self.block = nil;
     [super dealloc];
 }
 

@@ -12,6 +12,7 @@
 #import "USWorldBlockView.h"
 #import "USMainContext.h"
 #import "UISwipeGestureRecognizer+Additions.h"
+#import "USInventoryController.h"
 
 @interface USWorldController ()
 
@@ -43,7 +44,6 @@
 {
     [super viewDidLoad];
 
-
     NSArray *swipeRecognizers = [UISwipeGestureRecognizer us_swipeGestureRecognizersForAllDirectionsWithTarget:self
                                                                                                         action:@selector(handleSwipe:)];
 
@@ -74,7 +74,6 @@
         [context save:&error];
     }
 }
-
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
 {
@@ -110,7 +109,19 @@
         [self renderWorld];
 
         NSLog(@"block at 0,21 is %@", [USBlock blockAtPoint:CGPointMake(0, 21)]);
+
+        // TODO: Use an NSFetchedResultsController here instead?
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(characterControllerDidPlaceBlock:)
+                                                     name:USCharacterControllerDidPlaceBlock
+                                                   object:nil];
     }
+}
+
+- (void)characterControllerDidPlaceBlock:(NSNotification *)theNotification
+{
+    USBlock *block = [theNotification object];
+    [self.view addSubview:[block worldBlockView]];
 }
 
 - (void)createWorld
@@ -132,6 +143,20 @@
     }
 
     [self.view addSubview:self.characterController.view];
+
+    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(handleCharacterTap:)]
+                                             autorelease];
+    [self.characterController.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)handleCharacterTap:(UITapGestureRecognizer *)tapRecognizer
+{
+    USInventoryController *inventoryController = [USInventoryController inventoryControllerForCharacterController:self.characterController];
+
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentModalViewController:navController animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -139,7 +164,6 @@
     // Overriden to allow any orientation.
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
-
 
 - (void)didReceiveMemoryWarning
 {

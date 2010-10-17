@@ -13,9 +13,8 @@ float USRandomFloat(void);
 
 @interface USBlockView : UIView
 {
-    USBlock *block;
+
 }
 
-@property (nonatomic, retain) USBlock *block;
 
 @end

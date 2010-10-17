@@ -36,6 +36,8 @@
 		8164080D126ADC9F00463E22 /* _USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164080C126ADC9F00463E22 /* _USWorld.m */; };
 		816408B3126AE83900463E22 /* Underman.png in Resources */ = {isa = PBXBuildFile; fileRef = 816408B2126AE83900463E22 /* Underman.png */; };
 		816408FC126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 816408FB126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m */; };
+		81640941126AF4B900463E22 /* USInventoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164093F126AF4B900463E22 /* USInventoryController.m */; };
+		81640942126AF4B900463E22 /* USInventoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81640940126AF4B900463E22 /* USInventoryController.xib */; };
 		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
 		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
@@ -89,6 +91,9 @@
 		816408B2126AE83900463E22 /* Underman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Underman.png; path = Images/Underman.png; sourceTree = "<group>"; };
 		816408FA126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwipeGestureRecognizer+Additions.h"; sourceTree = "<group>"; };
 		816408FB126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwipeGestureRecognizer+Additions.m"; sourceTree = "<group>"; };
+		8164093E126AF4B900463E22 /* USInventoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USInventoryController.h; sourceTree = "<group>"; };
+		8164093F126AF4B900463E22 /* USInventoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USInventoryController.m; sourceTree = "<group>"; };
+		81640940126AF4B900463E22 /* USInventoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = USInventoryController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
 		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
@@ -147,6 +152,9 @@
 				816407DE126ACBC800463E22 /* USCharacterController.h */,
 				816407DF126ACBC800463E22 /* USCharacterController.m */,
 				816407E0126ACBC800463E22 /* USCharacterController.xib */,
+				8164093E126AF4B900463E22 /* USInventoryController.h */,
+				8164093F126AF4B900463E22 /* USInventoryController.m */,
+				81640940126AF4B900463E22 /* USInventoryController.xib */,
 				816406B9126AAF0100463E22 /* USBlockView.h */,
 				816406BA126AAF0100463E22 /* USBlockView.m */,
 				D54F1975126AD26F0075B5ED /* USWorldBlockView.h */,
@@ -283,6 +291,7 @@
 				81640673126AA49100463E22 /* USWorldController.xib in Resources */,
 				816407E2126ACBC800463E22 /* USCharacterController.xib in Resources */,
 				816408B3126AE83900463E22 /* Underman.png in Resources */,
+				81640942126AF4B900463E22 /* USInventoryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +323,7 @@
 				D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */,
 				D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */,
 				816408FC126AEF3A00463E22 /* UISwipeGestureRecognizer+Additions.m in Sources */,
+				81640941126AF4B900463E22 /* USInventoryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

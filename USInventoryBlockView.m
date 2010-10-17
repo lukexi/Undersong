@@ -10,12 +10,15 @@
 
 
 @implementation USInventoryBlockView
+@synthesize block;
 
 
-- (id)initWithFrame:(CGRect)frame {
-    
+
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         // Initialization code.
     }
     return self;
@@ -29,7 +32,9 @@
 }
 */
 
-- (void)dealloc {
+- (void)dealloc
+{
+    self.block = nil;
     [super dealloc];
 }
 

@@ -16,6 +16,8 @@
 #define kAccelerometerFrequency        30.0 //Hz
 #define kFilteringFactor 0.1
 
+NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBlock";
+
 @interface USCharacterController ()
 @property (nonatomic, assign) double accelX;
 @property (nonatomic, assign) double accelY;
@@ -167,34 +169,35 @@
     [super dealloc];
 }
 
-- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
+- (CGPoint)pointInDirection:(UISwipeGestureRecognizerDirection)direction
 {
     CGPoint manPoint = CGPointMake(self.position.x / TILESIZE, self.position.y / TILESIZE);
     CGPoint blockPoint = CGPointZero;
     switch (direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
-            NSLog(@"collecting Up: %@", self);
             blockPoint = CGPointMake(manPoint.x, manPoint.y - 1);
             break;
         case UISwipeGestureRecognizerDirectionDown:
-            NSLog(@"collecting down: %@", self);
             blockPoint = CGPointMake(manPoint.x, manPoint.y + 2); // UNTERMAN is 2 blocks tall
             break;
         case UISwipeGestureRecognizerDirectionLeft:
-            NSLog(@"collecting left: %@", self);
             blockPoint = CGPointMake(manPoint.x - 1, manPoint.y);
             break;
         case UISwipeGestureRecognizerDirectionRight:
-            NSLog(@"collecting right: %@", self);
             blockPoint = CGPointMake(manPoint.x + 1, manPoint.y);
             break;
         default:
             break;
     }
+    return blockPoint;
+}
+
+- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
+{
+    CGPoint blockPoint = [self pointInDirection:direction];
 
     USBlock *block = [USBlock blockAtPoint:blockPoint];
-    NSLog(@"BLOCK AT %@: %@", NSStringFromCGPoint(blockPoint), block);
 
     if (block)
     {
@@ -204,11 +207,35 @@
         block.world = nil;
         [self.character addInventoryEntriesObject:inventoryEntry];
         [[block worldBlockView] collectAction];
+        block.view = nil;
 
         NSError *error = nil;
         [context save:&error];
         NSLog(@"inventory!: %@", self.character.inventoryEntries);
     }
+}
+
+- (BOOL)placeBlock:(USBlock *)block inDirection:(UISwipeGestureRecognizerDirection)direction
+{
+    CGPoint blockPoint = [self pointInDirection:direction];
+
+    USBlock *existingBlock = [USBlock blockAtPoint:blockPoint];
+
+    if (existingBlock)
+    {
+        return NO;
+    }
+
+    block.xPositionValue = blockPoint.x;
+    block.yPositionValue = blockPoint.y;
+
+    [self.character.world addBlocksObject:block];
+    NSError *error = nil;
+    [[block managedObjectContext] save:&error];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:USCharacterControllerDidPlaceBlock
+                                                        object:block];
+    return YES;
 }
 
 @end
