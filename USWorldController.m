@@ -11,11 +11,6 @@
 #import "USBlockView.h"
 #import "USMainContext.h"
 
-float USRandomFloat(void)
-{
-    return (double)arc4random() / ARC4RANDOM_MAX;
-}
-
 @interface USWorldController ()
 
 - (void)createWorld;
@@ -26,6 +21,7 @@ float USRandomFloat(void)
 
 @implementation USWorldController
 @synthesize world;
+@synthesize characterController;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -44,6 +40,14 @@ float USRandomFloat(void)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
+
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    NSLog(@"rotated to width: %f", self.view.bounds.size.width);
+    // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
 
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
@@ -89,6 +93,7 @@ float USRandomFloat(void)
     [context save:&error];
 }
 
+
 - (void)renderWorld
 {
     for (USBlock *block in self.world.blocks)
@@ -96,8 +101,8 @@ float USRandomFloat(void)
         [self.view addSubview:[block blockView]];
     }
 
+    [self.view addSubview:self.characterController.view];
 }
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -126,6 +131,7 @@ float USRandomFloat(void)
 - (void)dealloc
 {
     self.world = nil;
+    self.characterController = nil;
     [super dealloc];
 }
 

@@ -7,7 +7,12 @@
 //
 
 #import "USBlockView.h"
+#import "USGlobals.h"
 
+float USRandomFloat(void)
+{
+    return (double)arc4random() / ARC4RANDOM_MAX;
+}
 
 @implementation USBlockView
 @synthesize block;

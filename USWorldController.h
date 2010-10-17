@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "USWorld.h"
-
-#define TILESIZE 20
-#define ARC4RANDOM_MAX 0x100000000
+#import "USGlobals.h"
+#import "USCharacterController.h"
 
 @interface USWorldController : UIViewController
 {
     USWorld *world;
+    USCharacterController *characterController;
 }
 
+@property (nonatomic, retain) IBOutlet USCharacterController *characterController;
 @property (nonatomic, retain) USWorld *world;
 
 @end
