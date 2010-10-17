@@ -60,6 +60,15 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     UIImageView *imageView = (UIImageView *)self.view;
     imageView.image = [UIImage imageNamed:@"Underman.png"];
 
+    imageView.animationImages = [NSArray arrayWithObjects:
+                                 [UIImage imageNamed:@"UndermanFrame1.png"],
+                                 [UIImage imageNamed:@"UndermanFrame2.png"],
+                                 [UIImage imageNamed:@"UndermanFrame3.png"],
+                                 [UIImage imageNamed:@"UndermanFrame4.png"],
+                                 nil];
+    [imageView startAnimating];
+    //imageView.animationDuration
+
     motionManager = [[CMMotionManager alloc] init];
 
     NSLog(@"accelerometer available?! %@", motionManager.accelerometerAvailable ? @"YES" : @"NO" );

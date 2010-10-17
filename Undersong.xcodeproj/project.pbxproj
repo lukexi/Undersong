@@ -41,6 +41,10 @@
 		816409DD126B084E00463E22 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 816409DC126B084E00463E22 /* icon.png */; };
 		81640AED126B24B900463E22 /* USGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640AEC126B24B900463E22 /* USGradientView.m */; };
 		81640AF4126B25D500463E22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81640AF3126B25D500463E22 /* QuartzCore.framework */; };
+		81640B09126B29BE00463E22 /* UndermanFrame1.png in Resources */ = {isa = PBXBuildFile; fileRef = 81640B08126B29BE00463E22 /* UndermanFrame1.png */; };
+		81640B0B126B29C800463E22 /* UndermanFrame2.png in Resources */ = {isa = PBXBuildFile; fileRef = 81640B0A126B29C800463E22 /* UndermanFrame2.png */; };
+		81640B0D126B29D300463E22 /* UndermanFrame3.png in Resources */ = {isa = PBXBuildFile; fileRef = 81640B0C126B29D300463E22 /* UndermanFrame3.png */; };
+		81640B10126B29E100463E22 /* UndermanFrame4.png in Resources */ = {isa = PBXBuildFile; fileRef = 81640B0E126B29DB00463E22 /* UndermanFrame4.png */; };
 		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
 		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
@@ -101,6 +105,10 @@
 		81640AEB126B24B900463E22 /* USGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGradientView.h; sourceTree = "<group>"; };
 		81640AEC126B24B900463E22 /* USGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGradientView.m; sourceTree = "<group>"; };
 		81640AF3126B25D500463E22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		81640B08126B29BE00463E22 /* UndermanFrame1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UndermanFrame1.png; path = UndermanAnimations/UndermanFrame1.png; sourceTree = "<group>"; };
+		81640B0A126B29C800463E22 /* UndermanFrame2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UndermanFrame2.png; path = UndermanAnimations/UndermanFrame2.png; sourceTree = "<group>"; };
+		81640B0C126B29D300463E22 /* UndermanFrame3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UndermanFrame3.png; path = UndermanAnimations/UndermanFrame3.png; sourceTree = "<group>"; };
+		81640B0E126B29DB00463E22 /* UndermanFrame4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UndermanFrame4.png; path = UndermanAnimations/UndermanFrame4.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
 		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
@@ -189,6 +197,10 @@
 				816409DC126B084E00463E22 /* icon.png */,
 				81640AEB126B24B900463E22 /* USGradientView.h */,
 				81640AEC126B24B900463E22 /* USGradientView.m */,
+				81640B08126B29BE00463E22 /* UndermanFrame1.png */,
+				81640B0A126B29C800463E22 /* UndermanFrame2.png */,
+				81640B0C126B29D300463E22 /* UndermanFrame3.png */,
+				81640B0E126B29DB00463E22 /* UndermanFrame4.png */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -305,6 +317,10 @@
 				816408B3126AE83900463E22 /* Underman.png in Resources */,
 				81640942126AF4B900463E22 /* USInventoryController.xib in Resources */,
 				816409DD126B084E00463E22 /* icon.png in Resources */,
+				81640B09126B29BE00463E22 /* UndermanFrame1.png in Resources */,
+				81640B0B126B29C800463E22 /* UndermanFrame2.png in Resources */,
+				81640B0D126B29D300463E22 /* UndermanFrame3.png in Resources */,
+				81640B10126B29E100463E22 /* UndermanFrame4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
