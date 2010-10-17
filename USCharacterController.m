@@ -9,10 +9,14 @@
 #import "USCharacterController.h"
 #import "USBlock.h"
 #import "USWorld.h"
+#import "USWorldBlockView.h"
+#import "USInventoryEntry.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kAccelerometerFrequency        30.0 //Hz
 #define kFilteringFactor 0.1
+
+NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBlock";
 
 @interface USCharacterController ()
 @property (nonatomic, assign) double accelX;
@@ -124,20 +128,18 @@
     }
 
     self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
-    
     if (self.position.y < 0)
     {
         self.position = CGPointMake(self.position.x, 0);
     }
-    
+
     [self handleCollision];
-    
+
     self.view.frame = CGRectMake(self.position.x, self.position.y, TILESIZE, TILESIZE * 2);
 }
 
 - (void)handleCollision
 {
-//    NSLog(@"Handling collisions----------------------------------------");
     
     // Get block information for all points potentially covered by the character
     // Keys are NSValues corresponding to the CGPoints 
@@ -145,155 +147,42 @@
     // (0, 1), (1, 1), 
     // (0, 2), (1, 2)
     NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
-//    double newX, newY;
-//    newX = self.position.x;
-//    newY = self.position.y;
     [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         USBlock *block = (USBlock *)obj;
         if (obj != [NSNull null])
         {
-//            NSLog(@"Got a block");
             double xDiff = self.position.x - block.xPositionValue * TILESIZE;
             double yDiff = (self.position.y - block.yPositionValue * TILESIZE) / 2;
             
-//            NSLog(@"xDiff: %f, yDiff: %f", xDiff, yDiff);
             
             if (fabs(xDiff) < TILESIZE && fabs(xDiff) < fabs(yDiff))
             {
-//                NSLog(@"Colliding on a horizontal face");
                 //Colliding on a horizontal face
                 self.velocityY = 0.0;
                 if (yDiff > 0)
                 {
-//                    NSLog(@"A");
                     self.position = CGPointMake(self.position.x, self.position.y + (TILESIZE - yDiff));
                 }
                 else
                 {
-//                    NSLog(@"B");
                     self.position = CGPointMake(self.position.x, (block.yPositionValue - 2) * TILESIZE);
                 }
             }
             else if (fabs(yDiff) < TILESIZE && fabs(yDiff) < fabs(xDiff))
             { 
-//                NSLog(@"Colliding on a vertical face");
                 //Colliding on a vertical face
                 self.velocityX = 0.0;
                 if (xDiff > 0)
                 {
-//                    NSLog(@"C");
                     self.position = CGPointMake(self.position.x + (TILESIZE - xDiff), self.position.y);
                 }
                 else
                 {
-//                    NSLog(@"D");
                     self.position = CGPointMake(self.position.x - (TILESIZE + xDiff), self.position.y);
                 }
             }
         }
     }];
-
-    
-    
-//    // Which points could the player end up at?
-//    BOOL ZeroZeroPossible = YES;
-//    BOOL OneZeroPossible = YES;
-//    BOOL ZeroOnePossible = YES;
-//    BOOL OneOnePossible = YES;
-//    
-//    //NSLog(@"blocksCovered: %@", blocksCovered);
-//    
-//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(0, 0)]] != [NSNull null] ||
-//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(0, 1)]] != [NSNull null])
-//    {
-//        ZeroZeroPossible = NO;
-//    }
-//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null] ||
-//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 2)]] != [NSNull null])
-//    {
-//        OneZeroPossible = NO;
-//    }
-//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 0)]] != [NSNull null] ||
-//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null])
-//    {
-//        ZeroOnePossible = NO;
-//    }
-//    if ([blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 1)]] != [NSNull null] ||
-//        [blocksCovered objectForKey:[NSValue valueWithCGPoint:CGPointMake(1, 2)]] != [NSNull null])
-//    {
-//        OneOnePossible = NO;
-//    }
-//
-//    // NO BLOCKS COVERED, we don't have to correct anything.
-//    if (ZeroZeroPossible && OneZeroPossible && ZeroOnePossible && OneOnePossible)
-//    {
-//        //NSLog(@"NO COLLISION");
-//        return;
-//    }
-//
-//    
-//    // SOME BLOCKS COVERED, move to the closest available position
-//    CGPoint closestPoint = self.position;
-//    CGFloat minSquaredDist = 1000000;
-//    
-//    if (ZeroZeroPossible)
-//    {
-//        CGPoint zeroZero = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE)), 
-//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE)));
-//        CGFloat squaredDist = pow(self.position.x - zeroZero.x, 2) + pow(self.position.y - zeroZero.y, 2);
-//        if (squaredDist < minSquaredDist)
-//        {
-//            minSquaredDist = squaredDist;
-//            closestPoint = zeroZero;
-//        }
-//    }
-//    if (OneZeroPossible)
-//    {
-//        CGPoint oneZero = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE) + TILESIZE), 
-//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE)));
-//        CGFloat squaredDist = pow(self.position.x - oneZero.x, 2) + pow(self.position.y - oneZero.y, 2);
-//        if (squaredDist < minSquaredDist)
-//        {
-//            minSquaredDist = squaredDist;
-//            closestPoint = oneZero;
-//        }
-//    }
-//    if (ZeroOnePossible)
-//    {
-//        CGPoint zeroOne = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE)), 
-//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE) + TILESIZE));
-//        CGFloat squaredDist = pow(self.position.x - zeroOne.x, 2) + pow(self.position.y - zeroOne.y, 2);
-//        if (squaredDist < minSquaredDist)
-//        {
-//            minSquaredDist = squaredDist;
-//            closestPoint = zeroOne;
-//        }
-//    }
-//    if (OneOnePossible)
-//    {
-//        CGPoint oneOne = CGPointMake((NSInteger) (self.position.x - fmod(self.position.x, TILESIZE) + TILESIZE), 
-//                                       (NSInteger) (self.position.y - fmod(self.position.y, TILESIZE) + TILESIZE));
-//        CGFloat squaredDist = pow(self.position.x - oneOne.x, 2) + pow(self.position.y - oneOne.y, 2);
-//        if (squaredDist < minSquaredDist)
-//        {
-//            minSquaredDist = squaredDist;
-//            closestPoint = oneOne;
-//        }
-//    }
-//    
-//    if (self.velocityX > 0 && closestPoint.x < self.position.x ||
-//        self.velocityX < 0 && closestPoint.x > self.position.x)
-//    {
-//        self.velocityX = 0;
-//    }
-//    if (self.velocityY > 0 && closestPoint.y < self.position.y ||
-//        self.velocityY < 0 && closestPoint.y > self.position.y)
-//    {
-//        self.velocityY = 0;
-//    }
-//    
-//    self.position = closestPoint;
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -325,25 +214,76 @@
     [super dealloc];
 }
 
-- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
+- (CGPoint)pointInDirection:(UISwipeGestureRecognizerDirection)direction
 {
+    CGPoint manPoint = CGPointMake(self.position.x / TILESIZE, self.position.y / TILESIZE);
+    CGPoint blockPoint = CGPointZero;
     switch (direction)
     {
         case UISwipeGestureRecognizerDirectionUp:
-            NSLog(@"collecting Up: %@", self);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y - 1);
             break;
         case UISwipeGestureRecognizerDirectionDown:
-            NSLog(@"collecting down: %@", self);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y + 2); // UNTERMAN is 2 blocks tall
             break;
         case UISwipeGestureRecognizerDirectionLeft:
-            NSLog(@"collecting left: %@", self);
+            blockPoint = CGPointMake(manPoint.x - 1, manPoint.y);
             break;
         case UISwipeGestureRecognizerDirectionRight:
-            NSLog(@"collecting right: %@", self);
+            blockPoint = CGPointMake(manPoint.x + 1, manPoint.y);
             break;
         default:
             break;
     }
+    return blockPoint;
+}
+
+- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction
+{
+    CGPoint blockPoint = [self pointInDirection:direction];
+
+    USBlock *block = [USBlock blockAtPoint:blockPoint];
+
+    if (block)
+    {
+        NSManagedObjectContext *context = [block managedObjectContext];
+        USInventoryEntry *inventoryEntry = [USInventoryEntry insertInManagedObjectContext:context];
+        inventoryEntry.block = block;
+        block.world = nil;
+        [self.character addInventoryEntriesObject:inventoryEntry];
+        [[block worldBlockView] collectAction];
+        block.view = nil;
+        NSLog(@"inventory entry: %@", inventoryEntry);
+
+        NSError *error = nil;
+        [context save:&error];
+        //NSLog(@"inventory!: %@", self.character.inventoryEntries);
+    }
+}
+
+- (BOOL)placeBlock:(USBlock *)block inDirection:(UISwipeGestureRecognizerDirection)direction
+{
+    CGPoint blockPoint = [self pointInDirection:direction];
+
+    USBlock *existingBlock = [USBlock blockAtPoint:blockPoint];
+
+    if (existingBlock)
+    {
+        return NO;
+    }
+
+    block.xPositionValue = blockPoint.x;
+    block.yPositionValue = blockPoint.y;
+
+    [self.character.world addBlocksObject:block];
+    NSLog(@"deleting inventory: %@", block.inventoryEntry);
+    [[block managedObjectContext] deleteObject:block.inventoryEntry];
+    NSError *error = nil;
+    [[block managedObjectContext] save:&error];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:USCharacterControllerDidPlaceBlock
+                                                        object:block];
+    return YES;
 }
 
 @end

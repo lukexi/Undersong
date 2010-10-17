@@ -11,9 +11,16 @@
 #import "USBlockView.h"
 #import "USWorldBlockView.h"
 #import "USMainContext.h"
+#import "UISwipeGestureRecognizer+Additions.h"
+#import "USInventoryController.h"
+#import <QuartzCore/QuartzCore.h>
+
+#define USRembrantSkyColor [UIColor colorWithRed:0.474 green:0.528 blue:0.512 alpha:1.000]
+#define USRembrantGrassColor [UIColor colorWithRed:0.193 green:0.266 blue:0.155 alpha:1.000]
 
 @interface USWorldController ()
 
+@property (nonatomic, retain) UIPopoverController *inventoryPopover;
 - (void)createWorld;
 - (void)renderWorld;
 
@@ -23,6 +30,9 @@
 @implementation USWorldController
 @synthesize world;
 @synthesize characterController;
+@synthesize inventoryPopover;
+
+
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -42,18 +52,22 @@
 {
     [super viewDidLoad];
 
+    NSArray *swipeRecognizers = [UISwipeGestureRecognizer us_swipeGestureRecognizersForAllDirectionsWithTarget:self
+                                                                                                        action:@selector(handleSwipe:)];
 
-    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self.characterController
-                                                                                           action:@selector(handleSwipe:)] autorelease];
-    [self.view addGestureRecognizer:swipeRecognizer];
-    
+    [swipeRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        [self.view addGestureRecognizer:obj];
+    }];
+
     // Initialization code.
     UITapGestureRecognizer *breakGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(breakBlock:)] autorelease];
-    
+
     [self.view addGestureRecognizer:breakGesture];
-    
-    
+
+    CAGradientLayer *gradientLayer = (CAGradientLayer *)self.view.layer;
+    gradientLayer.colors = [NSArray arrayWithObjects:(id)USRembrantSkyColor.CGColor, (id)USRembrantGrassColor.CGColor, nil];
+
     NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }
 
@@ -70,7 +84,6 @@
         [context save:&error];
     }
 }
-
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
 {
@@ -105,8 +118,18 @@
 
         [self renderWorld];
 
-        NSLog(@"block at 0,21 is %@", [USBlock blockAtPoint:CGPointMake(0, 21)]);
+        // TODO: Use an NSFetchedResultsController here instead?
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(characterControllerDidPlaceBlock:)
+                                                     name:USCharacterControllerDidPlaceBlock
+                                                   object:nil];
     }
+}
+
+- (void)characterControllerDidPlaceBlock:(NSNotification *)theNotification
+{
+    USBlock *block = [theNotification object];
+    [self.view addSubview:[block worldBlockView]];
 }
 
 - (void)createWorld
@@ -128,6 +151,37 @@
     }
 
     [self.view addSubview:self.characterController.view];
+
+    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(handleCharacterTap:)]
+                                             autorelease];
+    [self.characterController.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)handleCharacterTap:(UITapGestureRecognizer *)tapRecognizer
+{
+    USInventoryController *inventoryController = [USInventoryController inventoryControllerForCharacterController:self.characterController];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        inventoryController.contentSizeForViewInPopover = CGSizeMake(300, 250);
+        self.inventoryPopover = [[[UIPopoverController alloc] initWithContentViewController:inventoryController] autorelease];
+        [self.inventoryPopover presentPopoverFromRect:tapRecognizer.view.frame
+                                               inView:self.view
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+        self.inventoryPopover.delegate = self;
+    }
+    else
+    {
+        UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
+        [self presentModalViewController:navController animated:YES];
+    }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.inventoryPopover = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -135,7 +189,6 @@
     // Overriden to allow any orientation.
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -156,6 +209,7 @@
 
 - (void)dealloc
 {
+    self.inventoryPopover = nil;
     self.world = nil;
     self.characterController = nil;
     [super dealloc];

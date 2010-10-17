@@ -13,7 +13,7 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-    
+
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code.
@@ -31,11 +31,18 @@
                          self.transform = CGAffineTransformMakeScale(2, 2);
                      }
                      completion:^(BOOL finished){
-                         
                          [self removeFromSuperview];
                      }];
 }
 
+- (void)collectAction
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    } completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

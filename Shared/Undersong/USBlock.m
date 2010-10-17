@@ -4,6 +4,7 @@
 #import "USWorldBlockView.h"
 #import "USInventoryBlockView.h"
 #import "USMainContext.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation USBlock
 @synthesize view;
@@ -16,29 +17,43 @@
     {
         return (USWorldBlockView *)self.view;
     }
-    
+
     NSInteger x = [self.xPosition intValue];
     NSInteger y = [self.yPosition intValue];
-    
+
     USWorldBlockView *blockView = [[[USWorldBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                             TILESIZE, TILESIZE)] autorelease];
+    [blockView setIsPrecious:self.isPreciousValue];
 
-    blockView.backgroundColor = [UIColor colorWithHue:USRandomFloat()
-                                           saturation:0.5
-                                           brightness:0.5
-                                                alpha:1];
     self.view = blockView;
     return blockView;
 }
 
-+ (USBlock *) blockAtPoint:(CGPoint)point
+- (USInventoryBlockView *)inventoryBlockView
+{
+    if ([self.view isKindOfClass:[USInventoryBlockView class]])
+    {
+        return (USInventoryBlockView *)self.view;
+    }
+
+    USInventoryBlockView *blockView = [[[USInventoryBlockView alloc] initWithFrame:CGRectZero] autorelease];
+    [blockView setIsPrecious:self.isPreciousValue];
+    blockView.block = self;
+
+    self.view = blockView;
+
+    return blockView;
+}
+
++ (USBlock *)blockAtPoint:(CGPoint)point
 {
     //NSLog(@"getting block point %f, %f", point.x, point.y);
     
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:[USBlock entityInManagedObjectContext:context]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i", (NSInteger)point.x, (NSInteger)point.y];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i AND world != NULL",
+                              (NSInteger)point.x, (NSInteger)point.y];
     [request setPredicate:predicate];
 
     NSError *error = nil;

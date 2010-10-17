@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "USBlockView.h"
+#import "USBlock.h"
 
 @interface USInventoryBlockView : USBlockView {
-
+    USBlock *block;
 }
+
+@property (nonatomic, retain) USBlock *block;
 
 @end
