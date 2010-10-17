@@ -10,13 +10,9 @@
 
 }
 // Custom logic goes here.
-- (USWorldBlockView *) worldBlockView;
-+ (USBlock *) blockAtPoint:(CGPoint)point;
+- (USWorldBlockView *)worldBlockView;
 - (USInventoryBlockView *)inventoryBlockView;
 
 @property (nonatomic, retain) IBOutlet UIView *view;
-
-- (void)moveToInventoryForCharacter:(USCharacter *)aCharacter;
-- (void)moveToWorld;
 
 @end

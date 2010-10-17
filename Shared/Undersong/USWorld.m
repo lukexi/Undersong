@@ -118,4 +118,17 @@
     return returnDict;
 }
 
+// MUST CALL THESE METHODS TO UPDATE THE BLOCK MATRIX
+- (void)us_addBlocksObject:(USBlock *)aBlock
+{
+    [[self.blockMatrix objectAtIndex:aBlock.xPositionValue] replaceObjectAtIndex:aBlock.yPositionValue withObject:aBlock];
+    [self addBlocksObject:aBlock];
+}
+
+- (void)us_removeBlocksObject:(USBlock *)aBlock
+{
+    [[self.blockMatrix objectAtIndex:aBlock.xPositionValue] replaceObjectAtIndex:aBlock.yPositionValue withObject:[NSNull null]];
+    [self removeBlocksObject:aBlock];
+}
+
 @end

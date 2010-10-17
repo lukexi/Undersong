@@ -45,47 +45,10 @@
     return blockView;
 }
 
-+ (USBlock *)blockAtPoint:(CGPoint)point
-{
-    //NSLog(@"getting block point %f, %f", point.x, point.y);
-
-    NSManagedObjectContext *context = [USMainContext mainContext];
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    [request setEntity:[USBlock entityInManagedObjectContext:context]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i AND world != NULL",
-                              (NSInteger)point.x, (NSInteger)point.y];
-    [request setPredicate:predicate];
-
-    NSError *error = nil;
-    NSArray *results = [context executeFetchRequest:request error:&error];
-
-    if ([results count])
-    {
-        //NSLog(@"GOT A BLOCK");
-        return [results lastObject];
-    }
-    else
-    {
-        return nil;
-    }
-}
-
-
-
 - (void)dealloc
 {
     self.view = nil;
     [super dealloc];
-}
-
-- (void)moveToInventoryForCharacter:(USCharacter *)aCharacter
-{
-
-}
-
-- (void)moveToWorld
-{
-
 }
 
 @end

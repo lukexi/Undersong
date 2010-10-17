@@ -253,14 +253,15 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 {
     CGPoint blockPoint = [self pointInDirection:direction];
 
-    USBlock *block = [USBlock blockAtPoint:blockPoint];
+    USBlock *block = [self.character.world blockAtPoint:blockPoint];
 
-    if (block)
+    if ((NSNull *)block != [NSNull null])
     {
         NSManagedObjectContext *context = [block managedObjectContext];
         USInventoryEntry *inventoryEntry = [USInventoryEntry insertInManagedObjectContext:context];
         inventoryEntry.block = block;
-        block.world = nil;
+
+        [self.character.world us_removeBlocksObject:block];
         [self.character addInventoryEntriesObject:inventoryEntry];
         [[block worldBlockView] collectAction];
         block.view = nil;
@@ -275,8 +276,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 - (BOOL)placeBlock:(USBlock *)block inDirection:(UISwipeGestureRecognizerDirection)direction
 {
     CGPoint blockPoint = [self pointInDirection:direction];
-
-    USBlock *existingBlock = [USBlock blockAtPoint:blockPoint];
+    USBlock *existingBlock = [self.character.world blockAtPoint:blockPoint];
 
     if (existingBlock)
     {
@@ -286,7 +286,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     block.xPositionValue = blockPoint.x;
     block.yPositionValue = blockPoint.y;
 
-    [self.character.world addBlocksObject:block];
+    [self.character.world us_addBlocksObject:block];
     NSLog(@"deleting inventory: %@", block.inventoryEntry);
     [[block managedObjectContext] deleteObject:block.inventoryEntry];
     NSError *error = nil;

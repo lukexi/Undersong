@@ -13,4 +13,7 @@
 - (USBlock *)blockAtPoint:(CGPoint)point;
 - (NSDictionary *)blocksAroundCharacterPoint:(CGPoint)point;
 
+- (void)us_addBlocksObject:(USBlock *)aBlock;
+- (void)us_removeBlocksObject:(USBlock *)aBlock;
+
 @end
