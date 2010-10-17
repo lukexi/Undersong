@@ -175,11 +175,11 @@
     {
         case UISwipeGestureRecognizerDirectionUp:
             NSLog(@"collecting Up: %@", self);
-            blockPoint = CGPointMake(manPoint.x, manPoint.y + 1);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y - 1);
             break;
         case UISwipeGestureRecognizerDirectionDown:
             NSLog(@"collecting down: %@", self);
-            blockPoint = CGPointMake(manPoint.x, manPoint.y - 1);
+            blockPoint = CGPointMake(manPoint.x, manPoint.y + 2); // UNTERMAN is 2 blocks tall
             break;
         case UISwipeGestureRecognizerDirectionLeft:
             NSLog(@"collecting left: %@", self);
@@ -194,6 +194,7 @@
     }
 
     USBlock *block = [USBlock blockAtPoint:blockPoint];
+    NSLog(@"BLOCK AT %@: %@", NSStringFromCGPoint(blockPoint), block);
 
     if (block)
     {
