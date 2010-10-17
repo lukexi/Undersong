@@ -15,6 +15,7 @@ float USRandomFloat(void)
 }
 
 @implementation USWorldController
+@synthesize characterController;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -33,17 +34,25 @@ float USRandomFloat(void)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    NSLog(@"rotated to width: %f", self.view.bounds.size.width);
+    // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
+    
     NSInteger horizontalTileCount = round(self.view.bounds.size.width / TILESIZE) + 1;
     NSInteger verticalTileCount = round(self.view.bounds.size.height / TILESIZE) + 1;
-
+    
     for (NSInteger x = 0; x < horizontalTileCount; x++)
     {
         for (NSInteger y = 0; y < verticalTileCount; y++)
         {
             USBlock *tile = [[[USBlock alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                        TILESIZE, TILESIZE)] autorelease];
-
+            
             tile.backgroundColor = [UIColor colorWithHue:USRandomFloat()
                                               saturation:0.5
                                               brightness:0.5
@@ -51,9 +60,10 @@ float USRandomFloat(void)
             [self.view addSubview:tile];
         }
     }
+    
+    [self.view addSubview:self.characterController.view];
+    
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -81,6 +91,7 @@ float USRandomFloat(void)
 
 - (void)dealloc
 {
+    self.characterController = nil;
     [super dealloc];
 }
 

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#define TILESIZE 20
-#define ARC4RANDOM_MAX 0x100000000
+#import "USGlobals.h"
+#import "USCharacterController.h"
 
 @interface USWorldController : UIViewController
 {
-
+    USCharacterController *characterController;
 }
+@property (nonatomic, retain) IBOutlet USCharacterController *characterController;
+
+
 
 @end
