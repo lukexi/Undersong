@@ -112,7 +112,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
         self.velocityX = 0.0;
     }
     self.position = CGPointMake(self.position.x + self.velocityX, self.position.y);
-
+    
     if (self.position.x < 0)
     {
         self.position = CGPointMake(0, self.position.y);
@@ -123,9 +123,24 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
         self.position = CGPointMake(self.character.world.xSizeValue * TILESIZE, self.position.y);
     }
 
-    self.velocityY += 0.1;
+    //gravity
+    self.velocityY += 0.4;
+    
+    //jetpack
+    if (self.accelX > 0.3) {
+        self.velocityY -= self.accelX;
+    }
+    if (self.velocityY < 0)
+    {
+        //air resistance while rising
+        self.velocityY *= 0.9;
+    }
+
     self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
-    //else if (self.position > self.
+    if (self.position.y < 0)
+    {
+        self.position = CGPointMake(self.position.x, 0);
+    }
 
     [self handleCollision];
 
@@ -134,19 +149,49 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
 - (void)handleCollision
 {
-    // Assume that character is <= one block wide, and so can be on at most 2 blocks at once.
-    NSInteger x1, x2, y;
-    x1 = self.position.x / TILESIZE;
-    x2 = (self.position.x + TILESIZE) / TILESIZE;
-    // Find the y position of the block-row that character's feet are currently in.
-    y = (self.position.y + TILESIZE * 2) / TILESIZE;
-    USBlock *block1 = [USBlock blockAtPoint:CGPointMake(x1, y)];
-    USBlock *block2 = [USBlock blockAtPoint:CGPointMake(x2, y)];
-
-    if (block1 != nil || block2 != nil) {
-        self.velocityY = 0.0;
-        self.position = CGPointMake(self.position.x, (y - 2) * TILESIZE);
-    }
+    
+    // Get block information for all points potentially covered by the character
+    // Keys are NSValues corresponding to the CGPoints 
+    // (0, 0), (1, 0), 
+    // (0, 1), (1, 1), 
+    // (0, 2), (1, 2)
+    NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+    [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        USBlock *block = (USBlock *)obj;
+        if (obj != [NSNull null])
+        {
+            double xDiff = self.position.x - block.xPositionValue * TILESIZE;
+            double yDiff = (self.position.y - block.yPositionValue * TILESIZE) / 2;
+            
+            
+            if (fabs(xDiff) < TILESIZE && fabs(xDiff) < fabs(yDiff))
+            {
+                //Colliding on a horizontal face
+                self.velocityY = 0.0;
+                if (yDiff > 0)
+                {
+                    self.position = CGPointMake(self.position.x, self.position.y + (TILESIZE - yDiff));
+                }
+                else
+                {
+                    self.position = CGPointMake(self.position.x, (block.yPositionValue - 2) * TILESIZE);
+                }
+            }
+            else if (fabs(yDiff) < TILESIZE && fabs(yDiff) < fabs(xDiff))
+            { 
+                //Colliding on a vertical face
+                self.velocityX = 0.0;
+                if (xDiff > 0)
+                {
+                    self.position = CGPointMake(self.position.x + (TILESIZE - xDiff), self.position.y);
+                }
+                else
+                {
+                    self.position = CGPointMake(self.position.x - (TILESIZE + xDiff), self.position.y);
+                }
+            }
+        }
+    }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

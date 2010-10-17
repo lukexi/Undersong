@@ -38,7 +38,7 @@
             block.isPreciousValue = (stoneType == 14);
         }
     }
-
+    
     return world;
 }
 

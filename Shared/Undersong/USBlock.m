@@ -47,6 +47,8 @@
 
 + (USBlock *)blockAtPoint:(CGPoint)point
 {
+    //NSLog(@"getting block point %f, %f", point.x, point.y);
+    
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:[USBlock entityInManagedObjectContext:context]];
@@ -59,12 +61,39 @@
 
     if ([results count])
     {
+        //NSLog(@"GOT A BLOCK");
         return [results lastObject];
     }
     else
     {
         return nil;
     }
+}
+
++ (NSDictionary *) blocksAroundCharacterPoint:(CGPoint)point
+{
+    //NSLog(@"Getting blocks around player point at %f, %f", point.x, point.y);
+    
+    point = CGPointMake((NSInteger) (point.x / TILESIZE), (NSInteger) (point.y / TILESIZE));
+    
+    //NSLog(@"player block point is %f, %f", point.x, point.y);
+    
+    NSMutableDictionary *returnDict = [[NSMutableDictionary alloc] initWithCapacity:6];
+    
+    USBlock *block = [USBlock blockAtPoint:point];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(0, 0)]];
+    block = [USBlock blockAtPoint:CGPointMake(point.x + 1, point.y)];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(1, 0)]];
+    block = [USBlock blockAtPoint:CGPointMake(point.x, point.y + 1)];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(0, 1)]];
+    block = [USBlock blockAtPoint:CGPointMake(point.x + 1, point.y + 1)];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(1, 1)]];
+    block = [USBlock blockAtPoint:CGPointMake(point.x, point.y + 2)];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(0, 2)]];
+    block = [USBlock blockAtPoint:CGPointMake(point.x + 1, point.y + 2)];
+    [returnDict setObject:(block ? block : (USBlock *)[NSNull null]) forKey: [NSValue valueWithCGPoint:CGPointMake(1, 2)]];
+    
+    return returnDict;
 }
 
 - (void)dealloc
