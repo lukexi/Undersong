@@ -17,11 +17,13 @@
     // Accelerometer handling
     CMMotionManager *motionManager;
     double accelX, accelY, accelZ;
-    
+
     double velocityX, velocityY;
     CGPoint position;
-    
+
     IBOutlet USWorldController *worldController;
 }
+
+- (void)collectBlockInDirection:(UISwipeGestureRecognizerDirection)direction;
 
 @end

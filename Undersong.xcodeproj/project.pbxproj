@@ -23,17 +23,19 @@
 		816406BB126AAF0100463E22 /* USBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 816406BA126AAF0100463E22 /* USBlockView.m */; };
 		81640744126AC18F00463E22 /* USMainContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640743126AC18F00463E22 /* USMainContext.m */; };
 		816407AD126ACA0B00463E22 /* Undersong.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2870939E111907710040F596 /* Undersong.xcdatamodel */; };
-		816407AF126ACA1000463E22 /* USBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407AE126ACA1000463E22 /* USBlock.m */; };
-		816407B1126ACA1000463E22 /* USInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407B0126ACA1000463E22 /* USInventory.m */; };
-		816407B3126ACA1100463E22 /* USInventoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407B2126ACA1100463E22 /* USInventoryEntry.m */; };
-		816407B5126ACA1100463E22 /* USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407B4126ACA1100463E22 /* USWorld.m */; };
-		816407BB126ACA1200463E22 /* _USBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407BA126ACA1200463E22 /* _USBlock.m */; };
-		816407BD126ACA1300463E22 /* _USInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407BC126ACA1300463E22 /* _USInventory.m */; };
-		816407BF126ACA1300463E22 /* _USInventoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407BE126ACA1300463E22 /* _USInventoryEntry.m */; };
-		816407C1126ACA1300463E22 /* _USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407C0126ACA1300463E22 /* _USWorld.m */; };
 		816407E1126ACBC800463E22 /* USCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407DF126ACBC800463E22 /* USCharacterController.m */; };
 		816407E2126ACBC800463E22 /* USCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 816407E0126ACBC800463E22 /* USCharacterController.xib */; };
 		816407EA126ACBFD00463E22 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816407E9126ACBFD00463E22 /* CoreMotion.framework */; };
+		816407F6126ADC9A00463E22 /* USBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407F5126ADC9A00463E22 /* USBlock.m */; };
+		816407F8126ADC9A00463E22 /* USCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407F7126ADC9A00463E22 /* USCharacter.m */; };
+		816407FA126ADC9B00463E22 /* USInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407F9126ADC9B00463E22 /* USInventory.m */; };
+		816407FC126ADC9B00463E22 /* USInventoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407FB126ADC9B00463E22 /* USInventoryEntry.m */; };
+		816407FE126ADC9C00463E22 /* USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407FD126ADC9B00463E22 /* USWorld.m */; };
+		81640805126ADC9D00463E22 /* _USBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640804126ADC9D00463E22 /* _USBlock.m */; };
+		81640807126ADC9E00463E22 /* _USCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640806126ADC9E00463E22 /* _USCharacter.m */; };
+		81640809126ADC9E00463E22 /* _USInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640808126ADC9E00463E22 /* _USInventory.m */; };
+		8164080B126ADC9F00463E22 /* _USInventoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164080A126ADC9F00463E22 /* _USInventoryEntry.m */; };
+		8164080D126ADC9F00463E22 /* _USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164080C126ADC9F00463E22 /* _USWorld.m */; };
 		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
 		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
@@ -63,27 +65,31 @@
 		81640742126AC18F00463E22 /* USMainContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USMainContext.h; sourceTree = "<group>"; };
 		81640743126AC18F00463E22 /* USMainContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USMainContext.m; sourceTree = "<group>"; };
 		81640745126AC1BB00463E22 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
-		816407AE126ACA1000463E22 /* USBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USBlock.m; sourceTree = "<group>"; };
-		816407B0126ACA1000463E22 /* USInventory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USInventory.m; sourceTree = "<group>"; };
-		816407B2126ACA1100463E22 /* USInventoryEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USInventoryEntry.m; sourceTree = "<group>"; };
-		816407B4126ACA1100463E22 /* USWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USWorld.m; sourceTree = "<group>"; };
-		816407B6126ACA1100463E22 /* USBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USBlock.h; sourceTree = "<group>"; };
-		816407B7126ACA1100463E22 /* USInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USInventory.h; sourceTree = "<group>"; };
-		816407B8126ACA1200463E22 /* USInventoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USInventoryEntry.h; sourceTree = "<group>"; };
-		816407B9126ACA1200463E22 /* USWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USWorld.h; sourceTree = "<group>"; };
-		816407BA126ACA1200463E22 /* _USBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USBlock.m; sourceTree = "<group>"; };
-		816407BC126ACA1300463E22 /* _USInventory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USInventory.m; sourceTree = "<group>"; };
-		816407BE126ACA1300463E22 /* _USInventoryEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USInventoryEntry.m; sourceTree = "<group>"; };
-		816407C0126ACA1300463E22 /* _USWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USWorld.m; sourceTree = "<group>"; };
-		816407C2126ACA1400463E22 /* _USBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USBlock.h; sourceTree = "<group>"; };
-		816407C3126ACA1400463E22 /* _USInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USInventory.h; sourceTree = "<group>"; };
-		816407C4126ACA1400463E22 /* _USInventoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USInventoryEntry.h; sourceTree = "<group>"; };
-		816407C5126ACA1500463E22 /* _USWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USWorld.h; sourceTree = "<group>"; };
 		816407DE126ACBC800463E22 /* USCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USCharacterController.h; sourceTree = "<group>"; };
 		816407DF126ACBC800463E22 /* USCharacterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USCharacterController.m; sourceTree = "<group>"; };
 		816407E0126ACBC800463E22 /* USCharacterController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = USCharacterController.xib; sourceTree = "<group>"; };
 		816407E4126ACBDF00463E22 /* USGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGlobals.h; sourceTree = "<group>"; };
 		816407E9126ACBFD00463E22 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		816407F5126ADC9A00463E22 /* USBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USBlock.m; sourceTree = "<group>"; };
+		816407F7126ADC9A00463E22 /* USCharacter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USCharacter.m; sourceTree = "<group>"; };
+		816407F9126ADC9B00463E22 /* USInventory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USInventory.m; sourceTree = "<group>"; };
+		816407FB126ADC9B00463E22 /* USInventoryEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USInventoryEntry.m; sourceTree = "<group>"; };
+		816407FD126ADC9B00463E22 /* USWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USWorld.m; sourceTree = "<group>"; };
+		816407FF126ADC9C00463E22 /* USBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USBlock.h; sourceTree = "<group>"; };
+		81640800126ADC9C00463E22 /* USCharacter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USCharacter.h; sourceTree = "<group>"; };
+		81640801126ADC9C00463E22 /* USInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USInventory.h; sourceTree = "<group>"; };
+		81640802126ADC9D00463E22 /* USInventoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USInventoryEntry.h; sourceTree = "<group>"; };
+		81640803126ADC9D00463E22 /* USWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USWorld.h; sourceTree = "<group>"; };
+		81640804126ADC9D00463E22 /* _USBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USBlock.m; sourceTree = "<group>"; };
+		81640806126ADC9E00463E22 /* _USCharacter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USCharacter.m; sourceTree = "<group>"; };
+		81640808126ADC9E00463E22 /* _USInventory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USInventory.m; sourceTree = "<group>"; };
+		8164080A126ADC9F00463E22 /* _USInventoryEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USInventoryEntry.m; sourceTree = "<group>"; };
+		8164080C126ADC9F00463E22 /* _USWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _USWorld.m; sourceTree = "<group>"; };
+		8164080E126ADC9F00463E22 /* _USBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USBlock.h; sourceTree = "<group>"; };
+		8164080F126ADCA000463E22 /* _USCharacter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USCharacter.h; sourceTree = "<group>"; };
+		81640810126ADCA000463E22 /* _USInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USInventory.h; sourceTree = "<group>"; };
+		81640811126ADCA000463E22 /* _USInventoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USInventoryEntry.h; sourceTree = "<group>"; };
+		81640812126ADCA100463E22 /* _USWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USWorld.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
 		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
@@ -200,22 +206,26 @@
 		816406E5126ABECE00463E22 /* Undersong */ = {
 			isa = PBXGroup;
 			children = (
-				816407AE126ACA1000463E22 /* USBlock.m */,
-				816407B0126ACA1000463E22 /* USInventory.m */,
-				816407B2126ACA1100463E22 /* USInventoryEntry.m */,
-				816407B4126ACA1100463E22 /* USWorld.m */,
-				816407B6126ACA1100463E22 /* USBlock.h */,
-				816407B7126ACA1100463E22 /* USInventory.h */,
-				816407B8126ACA1200463E22 /* USInventoryEntry.h */,
-				816407B9126ACA1200463E22 /* USWorld.h */,
-				816407BA126ACA1200463E22 /* _USBlock.m */,
-				816407BC126ACA1300463E22 /* _USInventory.m */,
-				816407BE126ACA1300463E22 /* _USInventoryEntry.m */,
-				816407C0126ACA1300463E22 /* _USWorld.m */,
-				816407C2126ACA1400463E22 /* _USBlock.h */,
-				816407C3126ACA1400463E22 /* _USInventory.h */,
-				816407C4126ACA1400463E22 /* _USInventoryEntry.h */,
-				816407C5126ACA1500463E22 /* _USWorld.h */,
+				816407F5126ADC9A00463E22 /* USBlock.m */,
+				816407F7126ADC9A00463E22 /* USCharacter.m */,
+				816407F9126ADC9B00463E22 /* USInventory.m */,
+				816407FB126ADC9B00463E22 /* USInventoryEntry.m */,
+				816407FD126ADC9B00463E22 /* USWorld.m */,
+				816407FF126ADC9C00463E22 /* USBlock.h */,
+				81640800126ADC9C00463E22 /* USCharacter.h */,
+				81640801126ADC9C00463E22 /* USInventory.h */,
+				81640802126ADC9D00463E22 /* USInventoryEntry.h */,
+				81640803126ADC9D00463E22 /* USWorld.h */,
+				81640804126ADC9D00463E22 /* _USBlock.m */,
+				81640806126ADC9E00463E22 /* _USCharacter.m */,
+				81640808126ADC9E00463E22 /* _USInventory.m */,
+				8164080A126ADC9F00463E22 /* _USInventoryEntry.m */,
+				8164080C126ADC9F00463E22 /* _USWorld.m */,
+				8164080E126ADC9F00463E22 /* _USBlock.h */,
+				8164080F126ADCA000463E22 /* _USCharacter.h */,
+				81640810126ADCA000463E22 /* _USInventory.h */,
+				81640811126ADCA000463E22 /* _USInventoryEntry.h */,
+				81640812126ADCA100463E22 /* _USWorld.h */,
 			);
 			name = Undersong;
 			path = Shared/Undersong;
@@ -293,15 +303,17 @@
 				816406BB126AAF0100463E22 /* USBlockView.m in Sources */,
 				81640744126AC18F00463E22 /* USMainContext.m in Sources */,
 				816407AD126ACA0B00463E22 /* Undersong.xcdatamodel in Sources */,
-				816407AF126ACA1000463E22 /* USBlock.m in Sources */,
-				816407B1126ACA1000463E22 /* USInventory.m in Sources */,
-				816407B3126ACA1100463E22 /* USInventoryEntry.m in Sources */,
-				816407B5126ACA1100463E22 /* USWorld.m in Sources */,
-				816407BB126ACA1200463E22 /* _USBlock.m in Sources */,
-				816407BD126ACA1300463E22 /* _USInventory.m in Sources */,
-				816407BF126ACA1300463E22 /* _USInventoryEntry.m in Sources */,
-				816407C1126ACA1300463E22 /* _USWorld.m in Sources */,
 				816407E1126ACBC800463E22 /* USCharacterController.m in Sources */,
+				816407F6126ADC9A00463E22 /* USBlock.m in Sources */,
+				816407F8126ADC9A00463E22 /* USCharacter.m in Sources */,
+				816407FA126ADC9B00463E22 /* USInventory.m in Sources */,
+				816407FC126ADC9B00463E22 /* USInventoryEntry.m in Sources */,
+				816407FE126ADC9C00463E22 /* USWorld.m in Sources */,
+				81640805126ADC9D00463E22 /* _USBlock.m in Sources */,
+				81640807126ADC9E00463E22 /* _USCharacter.m in Sources */,
+				81640809126ADC9E00463E22 /* _USInventory.m in Sources */,
+				8164080B126ADC9F00463E22 /* _USInventoryEntry.m in Sources */,
+				8164080D126ADC9F00463E22 /* _USWorld.m in Sources */,
 				D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */,
 				D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */,
 			);

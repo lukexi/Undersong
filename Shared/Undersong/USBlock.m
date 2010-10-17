@@ -14,9 +14,9 @@
     // FANCY PANTS
     if ([self.view isKindOfClass:[USWorldBlockView class]])
     {
-        return (USWorldBlockView *) self.view;
+        return (USWorldBlockView *)self.view;
     }
-    
+
     NSInteger x = [self.xPosition intValue];
     NSInteger y = [self.yPosition intValue];
     
@@ -38,22 +38,22 @@
     [request setEntity:[USBlock entityInManagedObjectContext:context]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i", point.x, point.y];
     [request setPredicate:predicate];
-    
+
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
-    
+
     if ([results count])
     {
         return [results lastObject];
     }
-    else 
+    else
     {
         return nil;
     }
 }
 
 - (void)dealloc
-{    
+{
     self.view = nil;
     [super dealloc];
 }

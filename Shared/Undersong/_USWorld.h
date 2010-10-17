@@ -5,6 +5,7 @@
 
 
 @class USBlock;
+@class USCharacter;
 
 
 
@@ -46,6 +47,11 @@
 
 
 
+@property (nonatomic, retain) NSSet* characters;
+- (NSMutableSet*)charactersSet;
+
+
+
 @end
 
 @interface _USWorld (CoreDataGeneratedAccessors)
@@ -54,6 +60,11 @@
 - (void)removeBlocks:(NSSet*)value_;
 - (void)addBlocksObject:(USBlock*)value_;
 - (void)removeBlocksObject:(USBlock*)value_;
+
+- (void)addCharacters:(NSSet*)value_;
+- (void)removeCharacters:(NSSet*)value_;
+- (void)addCharactersObject:(USCharacter*)value_;
+- (void)removeCharactersObject:(USCharacter*)value_;
 
 @end
 
@@ -77,6 +88,11 @@
 
 - (NSMutableSet*)primitiveBlocks;
 - (void)setPrimitiveBlocks:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveCharacters;
+- (void)setPrimitiveCharacters:(NSMutableSet*)value;
 
 
 @end

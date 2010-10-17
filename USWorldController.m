@@ -42,23 +42,34 @@
 {
     [super viewDidLoad];
 
-    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 
+    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:characterController
+                                                                                           action:@selector(handleSwipe:)] autorelease];
+    [self.view addGestureRecognizer:swipeRecognizer];
+    NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
+{
+    [characterController collectBlockInDirection:swipeRecognizer.direction];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    // We're treating this as our viewDidLoad for anything that relies on
+    // the XY dimensions of the view, like world creation etc.,
+    // because it fires after we autorotate to the only orientation we support
 
     if ([self interfaceOrientation] == UIInterfaceOrientationLandscapeLeft)
     {
         NSLog(@"rotated to width: %f", self.view.bounds.size.width);
-        // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
-        
+
         NSManagedObjectContext *context = [USMainContext mainContext];
         NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
         [request setEntity:[USWorld entityInManagedObjectContext:context]];
         NSError *error = nil;
         NSArray *worlds = [context executeFetchRequest:request error:&error];
-        
+
         if ([worlds count])
         {
             self.world = [worlds objectAtIndex:0];
@@ -67,9 +78,9 @@
         {
             [self createWorld];
         }
-        
+
         [self renderWorld];
-        
+
         NSLog(@"block at 0,0 is %@", [USBlock blockAtPoint:CGPointMake(0, 0)]);
     }
 }
@@ -79,26 +90,8 @@
     NSLog(@"HELLO");
     
     NSManagedObjectContext *context = [USMainContext mainContext];
-    self.world = [USWorld insertInManagedObjectContext:context];
 
-    NSInteger horizontalTileCount = round(self.view.bounds.size.width / TILESIZE) + 1;
-    NSInteger verticalTileCount = round(self.view.bounds.size.height / TILESIZE) + 1;
-
-    self.world.xSize = [NSNumber numberWithInt:horizontalTileCount];
-    self.world.ySize = [NSNumber numberWithInt:verticalTileCount];
-
-    for (NSInteger x = 0; x < horizontalTileCount; x++)
-    {
-        for (NSInteger y = 20; y < verticalTileCount; y++)
-        {
-            USBlock *block = [USBlock insertInManagedObjectContext:context];
-            block.world = self.world;
-            
-            block.xPosition = [NSNumber numberWithInt:x];
-            block.yPosition = [NSNumber numberWithInt:y];
-        }
-    }
-
+    self.world = [USWorld worldWithSize:self.view.bounds.size inManagedObjectContext:context];
     NSError *error = nil;
     [context save:&error];
 }
