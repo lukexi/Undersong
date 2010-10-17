@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#define TILESIZE 20;
+#define TILESIZE 20
+#define ARC4RANDOM_MAX 0x100000000
 
 @interface USWorldController : UIViewController
 {

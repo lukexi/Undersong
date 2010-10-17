@@ -8,7 +8,7 @@
 
 #import "AppDelegate_iPad.h"
 
-@implementation AppDelegate (iPad)
+@implementation AppDelegate_iPad
 
 
 #pragma mark -
@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+NSLog(@"worldcontroller: %@", worldController);
     [self.window addSubview:self.worldController.view];
     [self.window makeKeyAndVisible];
 
