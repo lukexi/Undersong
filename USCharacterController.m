@@ -154,7 +154,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     // (0, 0), (1, 0),
     // (0, 1), (1, 1),
     // (0, 2), (1, 2)
-    NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+    NSDictionary *blocksCovered = [self.character.world blocksAroundCharacterPoint:self.position];
     [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         USBlock *block = (USBlock *)obj;
         if (obj != [NSNull null])
@@ -250,7 +250,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 {
     CGPoint blockPoint = [self pointInDirection:direction];
 
-    USBlock *block = [USBlock blockAtPoint:blockPoint];
+    USBlock *block = [self.character.world blockAtPoint:blockPoint];
 
     if (block)
     {
@@ -273,7 +273,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 {
     CGPoint blockPoint = [self pointInDirection:direction];
 
-    USBlock *existingBlock = [USBlock blockAtPoint:blockPoint];
+    USBlock *existingBlock = [self.character.world blockAtPoint:blockPoint];
 
     if (existingBlock)
     {

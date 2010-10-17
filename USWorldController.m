@@ -74,7 +74,7 @@
 - (void)breakBlock:(UIGestureRecognizer*)gestureRecognizer
 {
     CGPoint loc = [gestureRecognizer locationInView:self.view];
-    USBlock *block = [USBlock blockAtPoint:CGPointMake(loc.x / TILESIZE, loc.y / TILESIZE)];
+    USBlock *block = [self blockAtPoint:CGPointMake(loc.x / TILESIZE, loc.y / TILESIZE)];
     if (block)
     {
         [[block worldBlockView] breakAction];
