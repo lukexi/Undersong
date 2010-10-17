@@ -16,6 +16,7 @@
 
 @interface USWorldController ()
 
+@property (nonatomic, retain) UIPopoverController *inventoryPopover;
 - (void)createWorld;
 - (void)renderWorld;
 
@@ -25,6 +26,9 @@
 @implementation USWorldController
 @synthesize world;
 @synthesize characterController;
+@synthesize inventoryPopover;
+
+
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -154,9 +158,22 @@
 {
     USInventoryController *inventoryController = [USInventoryController inventoryControllerForCharacterController:self.characterController];
 
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentModalViewController:navController animated:YES];
+//    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
+//    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+//    [self presentModalViewController:navController animated:YES];
+
+    inventoryController.contentSizeForViewInPopover = CGSizeMake(300, 250);
+    self.inventoryPopover = [[[UIPopoverController alloc] initWithContentViewController:inventoryController] autorelease];
+    [self.inventoryPopover presentPopoverFromRect:tapRecognizer.view.frame
+                                           inView:self.view
+                         permittedArrowDirections:UIPopoverArrowDirectionAny
+                                         animated:YES];
+    self.inventoryPopover.delegate = self;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.inventoryPopover = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -184,6 +201,7 @@
 
 - (void)dealloc
 {
+    self.inventoryPopover = nil;
     self.world = nil;
     self.characterController = nil;
     [super dealloc];

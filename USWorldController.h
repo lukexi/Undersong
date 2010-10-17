@@ -11,10 +11,12 @@
 #import "USGlobals.h"
 #import "USCharacterController.h"
 
-@interface USWorldController : UIViewController
+@interface USWorldController : UIViewController <UIPopoverControllerDelegate>
 {
     USWorld *world;
     USCharacterController *characterController;
+
+    UIPopoverController *inventoryPopover;
 }
 
 @property (nonatomic, retain) IBOutlet USCharacterController *characterController;

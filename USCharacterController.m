@@ -230,7 +230,8 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     block.yPositionValue = blockPoint.y;
 
     [self.character.world addBlocksObject:block];
-    block.inventoryEntry = nil; // remove from inventory if it's there.
+    [[block managedObjectContext] deleteObject:block.inventoryEntry];
+//    [block.inventoryEntry.character removeInventoryEntriesObject:block.inventoryEntry];
     NSError *error = nil;
     [[block managedObjectContext] save:&error];
 
