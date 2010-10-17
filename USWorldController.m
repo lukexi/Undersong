@@ -83,7 +83,7 @@
         for (NSInteger y = 0; y < verticalTileCount; y++)
         {
             USBlock *block = [USBlock insertInManagedObjectContext:context];
-            block.world = world;
+            block.world = self.world;
             block.xPosition = [NSNumber numberWithInt:x];
             block.yPosition = [NSNumber numberWithInt:y];
         }
@@ -92,7 +92,6 @@
     NSError *error = nil;
     [context save:&error];
 }
-
 
 - (void)renderWorld
 {

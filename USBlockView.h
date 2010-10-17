@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "USBlock.h"
 
+float USRandomFloat(void);
+
 @interface USBlockView : UIView
 {
     USBlock *block;
