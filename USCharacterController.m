@@ -13,7 +13,7 @@
 #import "USInventoryEntry.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kAccelerometerFrequency        30.0 //Hz
+#define kAccelerometerFrequency        15.0 //Hz
 #define kFilteringFactor 0.1
 
 NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBlock";
@@ -95,10 +95,10 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
 
 
     // HACKY HACKY HACKTOWN, this should be in its own tick function, run on a tick timer.
-    if (fabs(self.accelY) > 0.02) {
-        self.velocityX += self.accelY * 2;
+    if (fabs(self.accelY) > 0.03) {
+        self.velocityX += self.accelY * 5;
     }
-    self.velocityX *= 0.9;
+    self.velocityX *= 0.8;
     if (fabs(self.velocityX) < 0.01) {
         self.velocityX = 0.0;
     }
@@ -115,11 +115,11 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     }
 
     //gravity
-    self.velocityY += 0.4;
+    self.velocityY += 1.21;
     
     //jetpack
-    if (self.accelX > 0.3) {
-        self.velocityY -= self.accelX;
+    if (self.accelX > 0.5) {
+        self.velocityY -= self.accelX * 3;
     }
     if (self.velocityY < 0)
     {
