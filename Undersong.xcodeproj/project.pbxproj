@@ -36,6 +36,8 @@
 		81640809126ADC9E00463E22 /* _USInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640808126ADC9E00463E22 /* _USInventory.m */; };
 		8164080B126ADC9F00463E22 /* _USInventoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164080A126ADC9F00463E22 /* _USInventoryEntry.m */; };
 		8164080D126ADC9F00463E22 /* _USWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 8164080C126ADC9F00463E22 /* _USWorld.m */; };
+		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
+		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,10 @@
 		81640811126ADCA000463E22 /* _USInventoryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USInventoryEntry.h; sourceTree = "<group>"; };
 		81640812126ADCA100463E22 /* _USWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _USWorld.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
+		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
+		D54F1978126AD28A0075B5ED /* USInventoryBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USInventoryBlockView.h; sourceTree = "<group>"; };
+		D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USInventoryBlockView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,10 @@
 				816407E0126ACBC800463E22 /* USCharacterController.xib */,
 				816406B9126AAF0100463E22 /* USBlockView.h */,
 				816406BA126AAF0100463E22 /* USBlockView.m */,
+				D54F1975126AD26F0075B5ED /* USWorldBlockView.h */,
+				D54F1976126AD26F0075B5ED /* USWorldBlockView.m */,
+				D54F1978126AD28A0075B5ED /* USInventoryBlockView.h */,
+				D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */,
 				816406E5126ABECE00463E22 /* Undersong */,
 			);
 			name = Shared;
@@ -304,6 +314,8 @@
 				81640809126ADC9E00463E22 /* _USInventory.m in Sources */,
 				8164080B126ADC9F00463E22 /* _USInventoryEntry.m in Sources */,
 				8164080D126ADC9F00463E22 /* _USWorld.m in Sources */,
+				D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */,
+				D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

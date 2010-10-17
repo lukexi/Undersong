@@ -1,9 +1,16 @@
 #import "_USBlock.h"
 
-@class USBlockView;
+@class USWorldBlockView;
 
-@interface USBlock : _USBlock {}
+@interface USBlock : _USBlock {
+
+    UIView *view;
+    
+}
 // Custom logic goes here.
-- (USBlockView *)blockView;
+- (USWorldBlockView *) worldBlockView;
++ (USBlock *) blockAtPoint:(CGPoint)point;
+
+@property (nonatomic, retain) IBOutlet UIView *view;
 
 @end

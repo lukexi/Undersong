@@ -9,6 +9,7 @@
 #import "USWorldController.h"
 #import "USBlock.h"
 #import "USBlockView.h"
+#import "USWorldBlockView.h"
 #import "USMainContext.h"
 
 @interface USWorldController ()
@@ -55,51 +56,39 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    NSLog(@"rotated to width: %f", self.view.bounds.size.width);
     // We're treating this as our viewDidLoad for anything that relies on
     // the XY dimensions of the view, like world creation etc.,
     // because it fires after we autorotate to the only orientation we support
 
-    NSManagedObjectContext *context = [USMainContext mainContext];
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    [request setEntity:[USWorld entityInManagedObjectContext:context]];
-    NSError *error = nil;
-    NSArray *worlds = [context executeFetchRequest:request error:&error];
-
-    if ([worlds count])
+    if ([self interfaceOrientation] == UIInterfaceOrientationLandscapeLeft)
     {
-        self.world = [worlds objectAtIndex:0];
-    }
-    else
-    {
-        [self createWorld];
-    }
+        NSLog(@"rotated to width: %f", self.view.bounds.size.width);
 
-    [self renderWorld];
+        NSManagedObjectContext *context = [USMainContext mainContext];
+        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        [request setEntity:[USWorld entityInManagedObjectContext:context]];
+        NSError *error = nil;
+        NSArray *worlds = [context executeFetchRequest:request error:&error];
+
+        if ([worlds count])
+        {
+            self.world = [worlds objectAtIndex:0];
+        }
+        else
+        {
+            [self createWorld];
+        }
+
+        [self renderWorld];
+
+        NSLog(@"block at 0,0 is %@", [USBlock blockAtPoint:CGPointMake(0, 0)]);
+    }
 }
 
 - (void)createWorld
 {
     NSManagedObjectContext *context = [USMainContext mainContext];
-    self.world = [USWorld insertInManagedObjectContext:context];
-
-    NSInteger horizontalTileCount = round(self.view.bounds.size.width / TILESIZE) + 1;
-    NSInteger verticalTileCount = round(self.view.bounds.size.height / TILESIZE) + 1;
-
-    self.world.xSize = [NSNumber numberWithInt:horizontalTileCount];
-    self.world.ySize = [NSNumber numberWithInt:verticalTileCount];
-
-    for (NSInteger x = 0; x < horizontalTileCount; x++)
-    {
-        for (NSInteger y = 0; y < verticalTileCount; y++)
-        {
-            USBlock *block = [USBlock insertInManagedObjectContext:context];
-            block.world = self.world;
-            block.xPosition = [NSNumber numberWithInt:x];
-            block.yPosition = [NSNumber numberWithInt:y];
-        }
-    }
-
+    self.world = [USWorld worldWithSize:self.view.bounds.size inManagedObjectContext:context];
     NSError *error = nil;
     [context save:&error];
 }
@@ -108,7 +97,7 @@
 {
     for (USBlock *block in self.world.blocks)
     {
-        [self.view addSubview:[block blockView]];
+        [self.view addSubview:[block worldBlockView]];
     }
 
     [self.view addSubview:self.characterController.view];
@@ -117,7 +106,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 
