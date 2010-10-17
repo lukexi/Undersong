@@ -233,7 +233,6 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     [self.character.world addBlocksObject:block];
     NSLog(@"deleting inventory: %@", block.inventoryEntry);
     [[block managedObjectContext] deleteObject:block.inventoryEntry];
-//    [block.inventoryEntry.character removeInventoryEntriesObject:block.inventoryEntry];
     NSError *error = nil;
     [[block managedObjectContext] save:&error];
 

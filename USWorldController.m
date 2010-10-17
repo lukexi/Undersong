@@ -156,17 +156,21 @@
 {
     USInventoryController *inventoryController = [USInventoryController inventoryControllerForCharacterController:self.characterController];
 
-//    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
-//    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-//    [self presentModalViewController:navController animated:YES];
-
-    inventoryController.contentSizeForViewInPopover = CGSizeMake(300, 250);
-    self.inventoryPopover = [[[UIPopoverController alloc] initWithContentViewController:inventoryController] autorelease];
-    [self.inventoryPopover presentPopoverFromRect:tapRecognizer.view.frame
-                                           inView:self.view
-                         permittedArrowDirections:UIPopoverArrowDirectionAny
-                                         animated:YES];
-    self.inventoryPopover.delegate = self;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        inventoryController.contentSizeForViewInPopover = CGSizeMake(300, 250);
+        self.inventoryPopover = [[[UIPopoverController alloc] initWithContentViewController:inventoryController] autorelease];
+        [self.inventoryPopover presentPopoverFromRect:tapRecognizer.view.frame
+                                               inView:self.view
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+        self.inventoryPopover.delegate = self;
+    }
+    else
+    {
+        UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:inventoryController] autorelease];
+        [self presentModalViewController:navController animated:YES];
+    }
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController

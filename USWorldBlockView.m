@@ -31,7 +31,6 @@
                          self.transform = CGAffineTransformMakeScale(2, 2);
                      }
                      completion:^(BOOL finished){
-
                          [self removeFromSuperview];
                      }];
 }

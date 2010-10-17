@@ -19,13 +19,14 @@
 
     NSInteger horizontalTileCount = round(worldSize.width / TILESIZE) + 1;
     NSInteger verticalTileCount = round(worldSize.height / TILESIZE) + 1;
+    NSInteger halfVerticalTileCount = round(verticalTileCount / 2);
 
     world.xSize = [NSNumber numberWithInt:horizontalTileCount];
     world.ySize = [NSNumber numberWithInt:verticalTileCount];
 
     for (NSInteger x = 0; x < horizontalTileCount; x++)
     {
-        for (NSInteger y = 20; y < verticalTileCount; y++)
+        for (NSInteger y = halfVerticalTileCount; y < verticalTileCount; y++)
         {
             USBlock *block = [USBlock insertInManagedObjectContext:context];
             block.world = world;

@@ -14,9 +14,10 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     // Override point for customization after application launch.
-NSLog(@"worldcontroller: %@", worldController);
+    NSLog(@"worldcontroller: %@", worldController);
     [self.window addSubview:self.worldController.view];
     [self.window makeKeyAndVisible];
 
