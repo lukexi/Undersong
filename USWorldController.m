@@ -76,6 +76,8 @@
 
 - (void)createWorld
 {
+    NSLog(@"HELLO");
+    
     NSManagedObjectContext *context = [USMainContext mainContext];
     self.world = [USWorld insertInManagedObjectContext:context];
 
@@ -87,10 +89,11 @@
 
     for (NSInteger x = 0; x < horizontalTileCount; x++)
     {
-        for (NSInteger y = 0; y < verticalTileCount; y++)
+        for (NSInteger y = 20; y < verticalTileCount; y++)
         {
             USBlock *block = [USBlock insertInManagedObjectContext:context];
             block.world = self.world;
+            
             block.xPosition = [NSNumber numberWithInt:x];
             block.yPosition = [NSNumber numberWithInt:y];
         }

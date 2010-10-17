@@ -49,7 +49,7 @@
     [super viewDidLoad];
     
     //[self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
-    [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor whiteColor].CGColor]];
+    [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor blackColor].CGColor]];
     
     motionManager = [[CMMotionManager alloc] init];
     
@@ -104,17 +104,17 @@
     {
         self.position = CGPointMake(self.worldController.world.xSizeValue * TILESIZE, self.position.y);
     }
+    
+    
+    
     //else if (self.position > self.
     self.view.frame = CGRectMake(self.position.x, self.position.y, TILESIZE, TILESIZE * 2);
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
     return YES;
 }
-
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

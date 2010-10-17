@@ -19,6 +19,7 @@
     
     NSInteger x = [self.xPosition intValue];
     NSInteger y = [self.yPosition intValue];
+    
     USWorldBlockView *blockView = [[[USWorldBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                             TILESIZE, TILESIZE)] autorelease];
 
