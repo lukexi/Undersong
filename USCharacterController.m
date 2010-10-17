@@ -7,8 +7,9 @@
 //
 
 #import "USCharacterController.h"
-#import "USWorldController.h"
 #import "USBlock.h"
+#import "USWorld.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kAccelerometerFrequency        30.0 //Hz
 #define kFilteringFactor 0.1
@@ -20,7 +21,6 @@
 @property (nonatomic, assign) double velocityX;
 @property (nonatomic, assign) double velocityY;
 @property (nonatomic, assign) CGPoint position;
-@property (nonatomic, assign) USWorldController *worldController;
 @end
 
 
@@ -31,8 +31,7 @@
 @synthesize velocityX;
 @synthesize velocityY;
 @synthesize position;
-@synthesize worldController;
-
+@synthesize character;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -46,12 +45,17 @@
 */
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
-    //[self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
-    [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor blackColor].CGColor]];
-    
+#if TARGET_IPHONE_SIMULATOR
+    [self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
+#endif
+
+    UIImageView *imageView = (UIImageView *)self.view;
+    imageView.image = [UIImage imageNamed:@"Underman.png"];
+
     motionManager = [[CMMotionManager alloc] init];
 
     NSLog(@"accelerometer available?! %@", motionManager.accelerometerAvailable ? @"YES" : @"NO" );
@@ -101,11 +105,11 @@
         self.position = CGPointMake(0, self.position.y);
     }
     // width in tiles conveniently equals screen size right now, we'll need to scroll later.
-    else if (self.position.x > self.worldController.world.xSizeValue * TILESIZE)
+    else if (self.position.x > self.character.world.xSizeValue * TILESIZE)
     {
-        self.position = CGPointMake(self.worldController.world.xSizeValue * TILESIZE, self.position.y);
+        self.position = CGPointMake(self.character.world.xSizeValue * TILESIZE, self.position.y);
     }
-    
+
     self.velocityY += 0.1;
     self.position = CGPointMake(self.position.x, self.position.y + self.velocityY);
     //else if (self.position > self.
@@ -132,12 +136,14 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     // Overriden to allow any orientation.
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 
@@ -145,14 +151,17 @@
 }
 
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 
-- (void)dealloc {
+- (void)dealloc
+{
+    self.character = nil;
     [super dealloc];
 }
 
