@@ -20,6 +20,7 @@
 		28EEC04B1118E28000187D67 /* AppDelegate_Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EEC04A1118E28000187D67 /* AppDelegate_Shared.m */; };
 		81640672126AA49100463E22 /* USWorldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81640670126AA49100463E22 /* USWorldController.m */; };
 		81640673126AA49100463E22 /* USWorldController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81640671126AA49100463E22 /* USWorldController.xib */; };
+		816406BB126AAF0100463E22 /* USBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 816406BA126AAF0100463E22 /* USBlock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		8164066F126AA49100463E22 /* USWorldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldController.h; sourceTree = "<group>"; };
 		81640670126AA49100463E22 /* USWorldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldController.m; sourceTree = "<group>"; };
 		81640671126AA49100463E22 /* USWorldController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = USWorldController.xib; sourceTree = "<group>"; };
+		816406B9126AAF0100463E22 /* USBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USBlock.h; sourceTree = "<group>"; };
+		816406BA126AAF0100463E22 /* USBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USBlock.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +104,8 @@
 				8164066F126AA49100463E22 /* USWorldController.h */,
 				81640670126AA49100463E22 /* USWorldController.m */,
 				81640671126AA49100463E22 /* USWorldController.xib */,
+				816406B9126AAF0100463E22 /* USBlock.h */,
+				816406BA126AAF0100463E22 /* USBlock.m */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				2819307D112F81BE00ECF9B4 /* Undersong.xcdatamodeld in Sources */,
 				2860E38A111B897F00E27156 /* AppDelegate_iPhone.m in Sources */,
 				81640672126AA49100463E22 /* USWorldController.m in Sources */,
+				816406BB126AAF0100463E22 /* USBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
