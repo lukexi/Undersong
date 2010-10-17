@@ -8,6 +8,7 @@
 
 #import "USCharacterController.h"
 #import "USWorld.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kAccelerometerFrequency        60.0 //Hz
 #define kFilteringFactor 0.1
@@ -51,7 +52,8 @@
     [self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
 #endif
 
-    [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor blackColor].CGColor]];
+    UIImageView *imageView = (UIImageView *)self.view;
+    imageView.image = [UIImage imageNamed:@"Underman.png"];
 
     motionManager = [[CMMotionManager alloc] init];
 
