@@ -154,7 +154,10 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     // (0, 0), (1, 0),
     // (0, 1), (1, 1),
     // (0, 2), (1, 2)
-    NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+    //NSDictionary *blocksCovered = [USBlock blocksAroundCharacterPoint:self.position];
+
+    NSDictionary *blocksCovered = [self.character.world blocksAroundCharacterPoint:self.position];
+
     [blocksCovered enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         USBlock *block = (USBlock *)obj;
         if (obj != [NSNull null])
