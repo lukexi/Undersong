@@ -43,7 +43,7 @@
     [super viewDidLoad];
 
 
-    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:characterController
+    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self.characterController
                                                                                            action:@selector(handleSwipe:)] autorelease];
     [self.view addGestureRecognizer:swipeRecognizer];
     NSLog(@"View did load with orientation: %d", [self interfaceOrientation]);
@@ -51,7 +51,7 @@
 
 - (void)handleSwipe:(UISwipeGestureRecognizer *)swipeRecognizer
 {
-    [characterController collectBlockInDirection:swipeRecognizer.direction];
+    [self.characterController collectBlockInDirection:swipeRecognizer.direction];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -78,6 +78,7 @@
         {
             [self createWorld];
         }
+        self.characterController.character = [self.world.characters anyObject];
 
         [self renderWorld];
 
@@ -88,7 +89,7 @@
 - (void)createWorld
 {
     NSLog(@"HELLO");
-    
+
     NSManagedObjectContext *context = [USMainContext mainContext];
 
     self.world = [USWorld worldWithSize:self.view.bounds.size inManagedObjectContext:context];
