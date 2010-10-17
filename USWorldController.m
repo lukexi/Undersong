@@ -61,11 +61,14 @@
 {
     CGPoint loc = [gestureRecognizer locationInView:self.view];
     USBlock *block = [USBlock blockAtPoint:CGPointMake(loc.x / TILESIZE, loc.y / TILESIZE)];
-    [[block worldBlockView] breakAction];
-    NSManagedObjectContext *context = [USMainContext mainContext];
-    [context deleteObject:block];
-    NSError *error = nil;
-    [context save:&error];
+    if (block)
+    {
+        [[block worldBlockView] breakAction];
+        NSManagedObjectContext *context = [USMainContext mainContext];
+        [context deleteObject:block];
+        NSError *error = nil;
+        [context save:&error];
+    }
 }
 
 
