@@ -46,13 +46,16 @@
     NSInteger xItems = round(self.view.bounds.size.width / (itemSize + spacing));
 
     NSArray *objectsArray = [self.characterController.character.inventoryEntries allObjects];
+    NSLog(@"Inventory entries: %@", objectsArray);
     [objectsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         NSInteger x = idx % xItems;
         NSInteger y = (int)floor(idx / xItems);
 
-        USInventoryBlockView *blockView = [[[USInventoryBlockView alloc] initWithFrame:CGRectMake(x * (itemSize + spacing), y * (itemSize + spacing),
-                                                                                    itemSize, itemSize)] autorelease];
+        USInventoryBlockView *blockView = [[[USInventoryBlockView alloc] initWithFrame:CGRectMake(x * (itemSize + spacing),
+                                                                                                  y * (itemSize + spacing),
+                                                                                                  itemSize,
+                                                                                                  itemSize)] autorelease];
         USInventoryEntry *entry = obj;
         blockView.block = entry.block;
         blockView.backgroundColor = [UIColor colorWithHue:USRandomFloat()

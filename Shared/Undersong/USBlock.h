@@ -5,11 +5,11 @@
 @interface USBlock : _USBlock {
 
     UIView *view;
-    
+
 }
 // Custom logic goes here.
-- (USWorldBlockView *) worldBlockView;
-+ (USBlock *) blockAtPoint:(CGPoint)point;
+- (USWorldBlockView *)worldBlockView;
++ (USBlock *)blockAtPoint:(CGPoint)point;
 
 @property (nonatomic, retain) IBOutlet UIView *view;
 

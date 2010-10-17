@@ -16,10 +16,10 @@
     {
         return (USWorldBlockView *)self.view;
     }
-    
+
     NSInteger x = [self.xPosition intValue];
     NSInteger y = [self.yPosition intValue];
-    
+
     USWorldBlockView *blockView = [[[USWorldBlockView alloc] initWithFrame:CGRectMake(x * TILESIZE, y * TILESIZE,
                                                                             TILESIZE, TILESIZE)] autorelease];
 
@@ -31,12 +31,13 @@
     return blockView;
 }
 
-+ (USBlock *) blockAtPoint:(CGPoint)point
++ (USBlock *)blockAtPoint:(CGPoint)point
 {
     NSManagedObjectContext *context = [USMainContext mainContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:[USBlock entityInManagedObjectContext:context]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i", (NSInteger)point.x, (NSInteger)point.y];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"xPosition == %i AND yPosition == %i AND world != NULL",
+                              (NSInteger)point.x, (NSInteger)point.y];
     [request setPredicate:predicate];
 
     NSError *error = nil;

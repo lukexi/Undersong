@@ -208,10 +208,11 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
         [self.character addInventoryEntriesObject:inventoryEntry];
         [[block worldBlockView] collectAction];
         block.view = nil;
+        NSLog(@"inventory entry: %@", inventoryEntry);
 
         NSError *error = nil;
         [context save:&error];
-        NSLog(@"inventory!: %@", self.character.inventoryEntries);
+        //NSLog(@"inventory!: %@", self.character.inventoryEntries);
     }
 }
 
@@ -230,6 +231,7 @@ NSString *USCharacterControllerDidPlaceBlock = @"USCharacterControllerDidPlaceBl
     block.yPositionValue = blockPoint.y;
 
     [self.character.world addBlocksObject:block];
+    NSLog(@"deleting inventory: %@", block.inventoryEntry);
     [[block managedObjectContext] deleteObject:block.inventoryEntry];
 //    [block.inventoryEntry.character removeInventoryEntriesObject:block.inventoryEntry];
     NSError *error = nil;
