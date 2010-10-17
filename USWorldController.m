@@ -9,6 +9,7 @@
 #import "USWorldController.h"
 #import "USBlock.h"
 #import "USBlockView.h"
+#import "USWorldBlockView.h"
 #import "USMainContext.h"
 
 @interface USWorldController ()
@@ -46,25 +47,31 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    NSLog(@"rotated to width: %f", self.view.bounds.size.width);
-    // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
 
-    NSManagedObjectContext *context = [USMainContext mainContext];
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    [request setEntity:[USWorld entityInManagedObjectContext:context]];
-    NSError *error = nil;
-    NSArray *worlds = [context executeFetchRequest:request error:&error];
-
-    if ([worlds count])
+    if ([self interfaceOrientation] == UIInterfaceOrientationLandscapeLeft)
     {
-        self.world = [worlds objectAtIndex:0];
+        NSLog(@"rotated to width: %f", self.view.bounds.size.width);
+        // We're treating this as our viewDidLoad, because it fires after we autorotate to the only orientation we support
+        
+        NSManagedObjectContext *context = [USMainContext mainContext];
+        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        [request setEntity:[USWorld entityInManagedObjectContext:context]];
+        NSError *error = nil;
+        NSArray *worlds = [context executeFetchRequest:request error:&error];
+        
+        if ([worlds count])
+        {
+            self.world = [worlds objectAtIndex:0];
+        }
+        else
+        {
+            [self createWorld];
+        }
+        
+        [self renderWorld];
+        
+        NSLog(@"block at 0,0 is %@", [USBlock blockAtPoint:CGPointMake(0, 0)]);
     }
-    else
-    {
-        [self createWorld];
-    }
-
-    [self renderWorld];
 }
 
 - (void)createWorld
@@ -97,7 +104,7 @@
 {
     for (USBlock *block in self.world.blocks)
     {
-        [self.view addSubview:[block blockView]];
+        [self.view addSubview:[block worldBlockView]];
     }
 
     [self.view addSubview:self.characterController.view];
@@ -106,7 +113,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 

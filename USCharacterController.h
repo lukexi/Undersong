@@ -10,10 +10,18 @@
 #import <CoreMotion/CoreMotion.h>
 #import "USGlobals.h"
 
+@class USWorldController;
+
 @interface USCharacterController : UIViewController <UIAccelerometerDelegate> {
 
+    // Accelerometer handling
     CMMotionManager *motionManager;
     double accelX, accelY, accelZ;
+    
+    double velocityX, velocityY;
+    CGPoint position;
+    
+    IBOutlet USWorldController *worldController;
 }
 
 @end

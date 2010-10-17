@@ -34,6 +34,8 @@
 		816407E1126ACBC800463E22 /* USCharacterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816407DF126ACBC800463E22 /* USCharacterController.m */; };
 		816407E2126ACBC800463E22 /* USCharacterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 816407E0126ACBC800463E22 /* USCharacterController.xib */; };
 		816407EA126ACBFD00463E22 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816407E9126ACBFD00463E22 /* CoreMotion.framework */; };
+		D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1976126AD26F0075B5ED /* USWorldBlockView.m */; };
+		D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,10 @@
 		816407E4126ACBDF00463E22 /* USGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGlobals.h; sourceTree = "<group>"; };
 		816407E9126ACBFD00463E22 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Undersong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Undersong-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D54F1975126AD26F0075B5ED /* USWorldBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USWorldBlockView.h; sourceTree = "<group>"; };
+		D54F1976126AD26F0075B5ED /* USWorldBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USWorldBlockView.m; sourceTree = "<group>"; };
+		D54F1978126AD28A0075B5ED /* USInventoryBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USInventoryBlockView.h; sourceTree = "<group>"; };
+		D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USInventoryBlockView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,10 @@
 				816407E0126ACBC800463E22 /* USCharacterController.xib */,
 				816406B9126AAF0100463E22 /* USBlockView.h */,
 				816406BA126AAF0100463E22 /* USBlockView.m */,
+				D54F1975126AD26F0075B5ED /* USWorldBlockView.h */,
+				D54F1976126AD26F0075B5ED /* USWorldBlockView.m */,
+				D54F1978126AD28A0075B5ED /* USInventoryBlockView.h */,
+				D54F1979126AD28A0075B5ED /* USInventoryBlockView.m */,
 				816406E5126ABECE00463E22 /* Undersong */,
 			);
 			name = Shared;
@@ -292,6 +302,8 @@
 				816407BF126ACA1300463E22 /* _USInventoryEntry.m in Sources */,
 				816407C1126ACA1300463E22 /* _USWorld.m in Sources */,
 				816407E1126ACBC800463E22 /* USCharacterController.m in Sources */,
+				D54F1977126AD26F0075B5ED /* USWorldBlockView.m in Sources */,
+				D54F197A126AD28A0075B5ED /* USInventoryBlockView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

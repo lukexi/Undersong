@@ -7,6 +7,7 @@
 //
 
 #import "USCharacterController.h"
+#import "USWorldController.h"
 
 #define kAccelerometerFrequency        60.0 //Hz
 #define kFilteringFactor 0.1
@@ -15,6 +16,10 @@
 @property (nonatomic, assign) double accelX;
 @property (nonatomic, assign) double accelY;
 @property (nonatomic, assign) double accelZ;
+@property (nonatomic, assign) double velocityX;
+@property (nonatomic, assign) double velocityY;
+@property (nonatomic, assign) CGPoint position;
+@property (nonatomic, assign) USWorldController *worldController;
 @end
 
 
@@ -22,6 +27,10 @@
 @synthesize accelX;
 @synthesize accelY;
 @synthesize accelZ;
+@synthesize velocityX;
+@synthesize velocityY;
+@synthesize position;
+@synthesize worldController;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -39,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
+    //[self.view setFrame:CGRectMake(100, 100, TILESIZE, TILESIZE * 2)];
     [self.view setBackgroundColor:[UIColor colorWithCGColor:[UIColor whiteColor].CGColor]];
     
     motionManager = [[CMMotionManager alloc] init];
@@ -50,6 +59,10 @@
     theAccelerometer.updateInterval = 1 / kAccelerometerFrequency;
     
     theAccelerometer.delegate = self;
+    
+    accelX = accelY = accelZ = 0.0;
+    velocityX = velocityY = 0.0;
+    position = CGPointMake(100, 100);
 }
 
 
@@ -60,16 +73,39 @@
     self.accelZ = (acceleration.z * kFilteringFactor) + (self.accelZ * (1.0 - kFilteringFactor));
     
     // Use the acceleration data.
-    // NSLog(@"%f, %f, %f", accelX, accelY, accelZ);
-    if (accelY < -0.07) {
-        NSLog(@"LEFT");
-    } else if (accelY > 0.07) {
-        NSLog(@"RIGHT");
+    //NSLog(@"%f, %f, %f", accelX, accelY, accelZ);
+//    if (accelY < -0.09) {
+//        NSLog(@"LEFT");
+//    } else if (accelY > 0.09) {
+//        NSLog(@"RIGHT");
+//    }
+//    // TODO: Take original orientation as reference
+//    if (accelX > 0.08) {
+//        NSLog(@"UP");
+//    }
+
+
+    // HACKY HACKY HACKTOWN, this should be in its own tick function, run on a tick timer.
+    if (fabs(self.accelY) > 0.02) {
+        self.velocityX += self.accelY;
     }
-    // TODO: Take original orientation as reference
-    if (accelX > 0.06) {
-        NSLog(@"UP");
+    self.velocityX *= 0.9;
+    if (fabs(self.velocityX) < 0.01) {
+        self.velocityX = 0.0;
     }
+    self.position = CGPointMake(self.position.x + self.velocityX, self.position.y);
+    
+    if (self.position.x < 0)
+    {
+        self.position = CGPointMake(0, self.position.y);
+    }
+    // width in tiles conveniently equals screen size right now, we'll need to scroll later.
+    else if (self.position.x > self.worldController.world.xSizeValue * TILESIZE)
+    {
+        self.position = CGPointMake(self.worldController.world.xSizeValue * TILESIZE, self.position.y);
+    }
+    //else if (self.position > self.
+    self.view.frame = CGRectMake(self.position.x, self.position.y, TILESIZE, TILESIZE * 2);
 }
 
 
